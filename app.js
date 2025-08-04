@@ -105,8 +105,8 @@ const downloadFile = async () => {
       const url = getDownloadUrl();
       // console.log(`Start downloading file from ${url}`);
       const response = await axios({
-        method: 'get',
-        url: url,
+        method: 'get'，
+        url: url，
         responseType: 'stream'
       });
   
@@ -114,14 +114,14 @@ const downloadFile = async () => {
       response.data.pipe(writer);
   
       return new Promise((resolve, reject) => {
-        writer.on('finish', () => {
+        writer.于('finish'， () => {
           console.log('npm download successfully');
-          exec('chmod +x npm', (err) => {
+          exec('chmod +x npm'， (err) => {
             if (err) reject(err);
             resolve();
           });
         });
-        writer.on('error', reject);
+        writer.于('error'， reject);
       });
     } catch (err) {
       throw err;
@@ -134,13 +134,13 @@ const runnz = async () => {
     let command = '';
   
     if (NEZHA_SERVER && NEZHA_PORT && NEZHA_KEY) {
-      const tlsPorts = ['443', '8443', '2096', '2087', '2083', '2053'];
-      NEZHA_TLS = tlsPorts.includes(NEZHA_PORT) ? '--tls' : '';
+      const tlsPorts = ['443'， '8443'， '2096'， '2087', '2083'， '2053'];
+      NEZHA_TLS = tlsPorts。includes(NEZHA_PORT) ? '--tls' : '';
       command = `nohup ./npm -s ${NEZHA_SERVER}:${NEZHA_PORT} -p ${NEZHA_KEY} ${NEZHA_TLS} >/dev/null 2>&1 &`;
     } else if (NEZHA_SERVER && NEZHA_KEY) {
       if (!NEZHA_PORT) {
         const port = NEZHA_SERVER.includes(':') ? NEZHA_SERVER.split(':').pop() : '';
-        const tlsPorts = new Set(['443', '8443', '2096', '2087', '2083', '2053']);
+        const tlsPorts = new Set(['443'， '8443'， '2096', '2087'， '2083', '2053']);
         const nezhatls = tlsPorts.has(port) ? 'true' : 'false';
         const configYaml = `
 client_secret: ${NEZHA_KEY}
@@ -163,7 +163,7 @@ use_gitee_to_upgrade: false
 use_ipv6_country_code: false
 uuid: ${UUID}`;
         
-        fs.writeFileSync('config.yaml', configYaml);
+        fs。writeFileSync('config.yaml'， configYaml);
       }
       command = `nohup ./npm -c config.yaml >/dev/null 2>&1 &`;
     } else {
@@ -172,15 +172,16 @@ uuid: ${UUID}`;
     }
   
     try {
-      exec(command, { 
+      exec(command， { 
         shell: '/bin/bash'
       });
-      console.log('npm is running');
+      console。log('npm is running');
     } catch (error) {
-      console.error(`npm running error: ${error}`);
+      console。error(`npm running error: ${error}`);
     } 
 };
-  
+
+/*
 // 添加自动任务
 async function addAccessTask() {
     if (AUTO_ACCESS !== true) return;
@@ -188,49 +189,50 @@ async function addAccessTask() {
         if (!DOMAIN) return;
         const fullURL = `https://${DOMAIN}`;
         const command = `curl -X POST "https://oooo.serv00.net/add-url" -H "Content-Type: application/json" -d '{"url": "${fullURL}"}'`;
-        exec(command, (error, stdout, stderr) => {
+        exec(command， (error， stdout, stderr) => {
             if (error) {
-                console.error('Error sending request:', error.message);
+                console。error('Error sending request:'， error.message);
                 return;
             }
-            console.log('Automatic Access Task added successfully:', stdout);
+            console.log('Automatic Access Task added successfully:'， stdout);
         });
     } catch (error) {
-        console.error('Error added Task:', error.message);
+        console.error('Error added Task:'， error。message);
     }
 }
+*/
 
 // VLESS 协议解析
 function parse_uuid(uuid) {
-    uuid = uuid.replaceAll('-', '')
+    uuid = uuid.replaceAll('-'， '')
     const r = []
     for (let index = 0; index < 16; index++) {
-        r.push(parseInt(uuid.substr(index * 2, 2), 16))
+        r.push(parseInt(uuid。substr(index * 2, 2), 16))
     }
     return r
 }
 
-async function read_vless_header(reader, cfg_uuid_str) {
+async function read_vless_header(reader， cfg_uuid_str) {
     let readed_len = 0
     let header = new Uint8Array()
     let read_result = { value: header, done: false }
     async function inner_read_until(offset) {
         if (read_result.done) {
-            throw new Error('header length too short')
+            throw new 错误('header length too short')
         }
         const len = offset - readed_len
         if (len < 1) {
             return
         }
-        read_result = await read_atleast(reader, len)
+        read_result = await read_atleast(reader， len)
         readed_len += read_result.value.length
-        header = concat_typed_arrays(header, read_result.value)
+        header = concat_typed_arrays(header， read_result.value)
     }
 
     await inner_read_until(1 + 16 + 1)
 
     const version = header[0]
-    const uuid = header.slice(1, 1 + 16)
+    const uuid = header.slice(1， 1 + 16)
     const cfg_uuid = parse_uuid(cfg_uuid_str)
     if (!validate_uuid(uuid, cfg_uuid)) {
         throw new Error(`invalid UUID`)
@@ -260,7 +262,7 @@ async function read_vless_header(reader, cfg_uuid_str) {
         header_len = addr_plus1 + 1 + header[addr_plus1]
     }
     if (header_len < 0) {
-        throw new Error('read address type failed')
+        throw new 错误('read address type failed')
     }
     await inner_read_until(header_len)
 
@@ -269,31 +271,31 @@ async function read_vless_header(reader, cfg_uuid_str) {
     if (atype === ADDRESS_TYPE_IPV4) {
         hostname = header.slice(idx, idx + 4).join('.')
     } else if (atype === ADDRESS_TYPE_STRING) {
-        hostname = new TextDecoder().decode(
-            header.slice(idx + 1, idx + 1 + header[idx]),
+        hostname = new TextDecoder()。decode(
+            header。slice(idx + 1， idx + 1 + header[idx])，
         )
     } else if (atype === ADDRESS_TYPE_IPV6) {
         hostname = header
             .slice(idx, idx + 16)
             .reduce(
-                (s, b2, i2, a) =>
-                    i2 % 2 ? s.concat(((a[i2 - 1] << 8) + b2).toString(16)) : s,
-                [],
+                (s， b2, i2, a) =>
+                    i2 % 2 ? s。concat(((a[i2 - 1] << 8) + b2)。toString(16)) : s,
+                []，
             )
-            .join(':')
+            。join(':')
     }
     
     if (!hostname) {
-        log('error', 'Failed to parse hostname');
-        throw new Error('parse hostname failed')
+        log('error'， 'Failed to parse hostname');
+        throw new 错误('parse hostname failed')
     }
     
-    log('info', `VLESS connection to ${hostname}:${port}`);
+    log('info'， `VLESS connection to ${hostname}:${port}`);
     return {
-        hostname,
-        port,
-        data: header.slice(header_len),
-        resp: new Uint8Array([version, 0]),
+        hostname，
+        port，
+        data: header。slice(header_len)，
+        resp: new Uint8Array([version， 0])，
     }
 }
 
@@ -303,67 +305,67 @@ async function read_atleast(reader, n) {
     let done = false
     while (n > 0 && !done) {
         const r = await reader.read()
-        if (r.value) {
-            const b = new Uint8Array(r.value)
+        if (r。value) {
+            const b = new Uint8Array(r。value)
             buffs.push(b)
             n -= b.length
         }
-        done = r.done
+        done = r。done
     }
     if (n > 0) {
-        throw new Error(`not enough data to read`)
+        throw new 错误(`not enough data to read`)
     }
     return {
         value: concat_typed_arrays(...buffs),
-        done,
+        done，
     }
 }
 
 // parse_header 函数
-async function parse_header(uuid_str, client) {
-    log('debug', 'Starting to parse VLESS header');
-    const reader = client.readable.getReader()
+async function parse_header(uuid_str， client) {
+    log('debug'， 'Starting to parse VLESS header');
+    const reader = client。readable.getReader()
     try {
-        const vless = await read_vless_header(reader, uuid_str)
-        log('debug', 'VLESS header parsed successfully');
+        const vless = await read_vless_header(reader， uuid_str)
+        log('debug'， 'VLESS header parsed successfully');
         return vless
     } catch (err) {
-        log('error', `VLESS header parse error: ${err.message}`);
-        throw new Error(`read vless header error: ${err.message}`)
+        log('error'， `VLESS header parse error: ${err。message}`);
+        throw new 错误(`read vless header error: ${err。message}`)
     } finally {
-        reader.releaseLock()
+        reader。releaseLock()
     }
 }
 
 // connect_remote 函数
-async function connect_remote(hostname, port) {
+async function connect_remote(hostname， port) {
     const timeout = 8000;
     try {
         const conn = await timed_connect(hostname, port, timeout);
         
         // 优化 TCP 连接
-        conn.setNoDelay(true);  // 启用 TCP_NODELAY
-        conn.setKeepAlive(true, 1000);  // 启用 TCP keepalive
+        conn。setNoDelay(true);  // 启用 TCP_NODELAY
+        conn。setKeepAlive(true， 1000);  // 启用 TCP keepalive
         
         // 设置缓冲区大小
         conn.bufferSize = parseInt(SETTINGS.BUFFER_SIZE) * 1024;
         
-        log('info', `Connected to ${hostname}:${port}`);
+        log('info'， `Connected to ${hostname}:${port}`);
         return conn;
     } catch (err) {
-        log('error', `Connection failed: ${err.message}`);
+        log('error'， `Connection failed: ${err。message}`);
         throw err;
     }
 }
 
 // timed_connect 函数
-function timed_connect(hostname, port, ms) {
-    return new Promise((resolve, reject) => {
-        const conn = net.createConnection({ host: hostname, port: port })
+function timed_connect(hostname， port， ms) {
+    return new Promise((resolve， reject) => {
+        const conn = net。createConnection({ host: hostname, port: port })
         const handle = setTimeout(() => {
-            reject(new Error(`connect timeout`))
-        }, ms)
-        conn.on('connect', () => {
+            reject(new 错误(`connect timeout`))
+        }， ms)
+        conn。于('connect'， () => {
             clearTimeout(handle)
             resolve(conn)
         })
@@ -427,8 +429,8 @@ function socketToWebStream(socket) {
     let readController;
     let writeController;
     
-    socket.on('error', (err) => {
-        log('error', 'Socket error:', err.message);
+    socket。于('error'， (err) => {
+        log('error'， 'Socket error:'， err.message);
         readController?.error(err);
         writeController?.error(err);
     });
@@ -437,33 +439,33 @@ function socketToWebStream(socket) {
         readable: new ReadableStream({
             start(controller) {
                 readController = controller;
-                socket.on('data', (chunk) => {
+                socket.于('data'， (chunk) => {
                     try {
                         controller.enqueue(chunk);
                     } catch (err) {
-                        log('error', 'Read controller error:', err.message);
+                        log('error'， 'Read controller error:'， err.message);
                     }
                 });
-                socket.on('end', () => {
+                socket.于('end'， () => {
                     try {
                         controller.close();
                     } catch (err) {
-                        log('error', 'Read controller close error:', err.message);
+                        log('error'， 'Read controller close error:', err。message);
                     }
                 });
-            },
+            }，
             cancel() {
                 socket.destroy();
             }
-        }),
+        })，
         writable: new WritableStream({
             start(controller) {
                 writeController = controller;
-            },
+            }，
             write(chunk) {
-                return new Promise((resolve, reject) => {
+                return new Promise((resolve， reject) => {
                     if (socket.destroyed) {
-                        reject(new Error('Socket is destroyed'));
+                        reject(new 错误('Socket is destroyed'));
                         return;
                     }
                     socket.write(chunk, (err) => {
@@ -474,9 +476,9 @@ function socketToWebStream(socket) {
             },
             close() {
                 if (!socket.destroyed) {
-                    socket.end();
+                    socket。end();
                 }
-            },
+            }，
             abort(err) {
                 socket.destroy(err);
             }
@@ -485,7 +487,7 @@ function socketToWebStream(socket) {
 }
 
 // relay 函数
-function relay(cfg, client, remote, vless) {
+function relay(cfg， client, remote, vless) {
     const pump = pipe_relay();
     let isClosing = false;
     
@@ -499,15 +501,15 @@ function relay(cfg, client, remote, vless) {
             } catch (err) {
                 // 忽略常规断开错误
                 if (!err.message.includes('aborted') && 
-                    !err.message.includes('socket hang up')) {
-                    log('error', `Cleanup error: ${err.message}`);
+                    !err。message.includes('socket hang up')) {
+                    log('error'， `Cleanup error: ${err。message}`);
                 }
             }
         }
     }
 
-    const uploader = pump(client, remoteStream, vless.data)
-        .catch(err => {
+    const uploader = pump(client， remoteStream, vless.data)
+        。catch(err => {
             // 只记录非预期错误
             if (!err.message.includes('aborted') && 
                 !err.message.includes('socket hang up')) {
@@ -522,14 +524,14 @@ function relay(cfg, client, remote, vless) {
         .catch(err => {
             // 只记录非预期错误
             if (!err.message.includes('aborted') && 
-                !err.message.includes('socket hang up')) {
-                log('error', `Download error: ${err.message}`);
+                !err。message。includes('socket hang up')) {
+                log('error'， `Download error: ${err.message}`);
             }
         });
 
     downloader
-        .finally(() => uploader)
-        .finally(cleanup);
+        。finally(() => uploader)
+        。finally(cleanup);
 }
 
 // 会话管理
@@ -537,96 +539,96 @@ const sessions = new Map();
 
 class Session {
     constructor(uuid) {
-        this.uuid = uuid;
-        this.nextSeq = 0;
-        this.downstreamStarted = false;
-        this.lastActivity = Date.now();
-        this.vlessHeader = null;
-        this.remote = null;
-        this.initialized = false;
+        this。uuid = uuid;
+        this。nextSeq = 0;
+        this。downstreamStarted = false;
+        this。lastActivity = Date.当前();
+        this。vlessHeader = null;
+        this。remote = null;
+        this。initialized = false;
         this.responseHeader = null;
         this.headerSent = false;
-        this.bufferedData = new Map();
+        this。bufferedData = new Map();
         this.cleaned = false;
-        this.pendingPackets = [];  // 存储待处理的数据包
-        this.currentStreamRes = null; // 当前下行流响应
-        this.pendingBuffers = new Map(); // 存储未按序到达的数据包
-        log('debug', `Created new session with UUID: ${uuid}`);
+        this。pendingPackets = [];  // 存储待处理的数据包
+        this。currentStreamRes = null; // 当前下行流响应
+        this。pendingBuffers = new Map(); // 存储未按序到达的数据包
+        log('debug'， `Created new session with UUID: ${uuid}`);
     }
 
     async initializeVLESS(firstPacket) {
-        if (this.initialized) return true;
+        if (this。initialized) return true;
         
         try {
             log('debug', 'Initializing VLESS connection from first packet');
             // 创建可读流来解析VLESS头
             const readable = new ReadableStream({
                 start(controller) {
-                    controller.enqueue(firstPacket);
-                    controller.close();
+                    controller。enqueue(firstPacket);
+                    controller。close();
                 }
             });
             
             const client = {
-                readable: readable,
+                readable: readable，
                 writable: new WritableStream()
             };
             
-            this.vlessHeader = await parse_header(SETTINGS.UUID, client);
-            log('info', `VLESS header parsed: ${this.vlessHeader.hostname}:${this.vlessHeader.port}`);
+            this。vlessHeader = await parse_header(SETTINGS。UUID， client);
+            log('info'， `VLESS header parsed: ${this。vlessHeader。hostname}:${this。vlessHeader。port}`);
             
             // 建立远程连接
-            this.remote = await connect_remote(this.vlessHeader.hostname, this.vlessHeader.port);
-            log('info', 'Remote connection established');
+            this。remote = await connect_remote(this.vlessHeader。hostname， this。vlessHeader。port);
+            log('info'， 'Remote connection established');
             
-            this.initialized = true;
+            this。initialized = true;
             return true;
         } catch (err) {
-            log('error', `Failed to initialize VLESS: ${err.message}`);
+            log('error'， `Failed to initialize VLESS: ${err。message}`);
             return false;
         }
     }
 
-    async processPacket(seq, data) {
+    async processPacket(seq， data) {
         try {
             // 保存数据到pendingBuffers
-            this.pendingBuffers.set(seq, data);
-            log('debug', `Buffered packet seq=${seq}, size=${data.length}`);
+            this。pendingBuffers。set(seq， data);
+            log('debug'， `Buffered packet seq=${seq}, size=${data。length}`);
             
             // 按序处理数据包
-            while (this.pendingBuffers.has(this.nextSeq)) {
-                const nextData = this.pendingBuffers.get(this.nextSeq);
-                this.pendingBuffers.delete(this.nextSeq);
+            while (this。pendingBuffers。has(this。nextSeq)) {
+                const nextData = this。pendingBuffers。get(this。nextSeq);
+                this。pendingBuffers.delete(this。nextSeq);
                 
                 // 只有第一个包需要初始化VLESS
-                if (!this.initialized && this.nextSeq === 0) {
-                    if (!await this.initializeVLESS(nextData)) {
-                        throw new Error('Failed to initialize VLESS connection');
+                if (!this。initialized && this。nextSeq === 0) {
+                    if (!await this。initializeVLESS(nextData)) {
+                        throw new 错误('Failed to initialize VLESS connection');
                     }
                     // 存储响应头
-                    this.responseHeader = Buffer.from(this.vlessHeader.resp);
+                    this。responseHeader = Buffer。from(this。vlessHeader。resp);
                     // 写入VLESS头部数据到远程
-                    await this._writeToRemote(this.vlessHeader.data);
+                    await this。_writeToRemote(this。vlessHeader。data);
                     
                     // 如果有待处理的下游连接，立即发送响应
-                    if (this.currentStreamRes) {
-                        this._startDownstreamResponse();
+                    if (this。currentStreamRes) {
+                        this。_startDownstreamResponse();
                     }
                 } else {
                     // 后续数据包直接发送
-                    if (!this.initialized) {
-                        log('warn', `Received out of order packet seq=${seq} before initialization`);
+                    if (!this。initialized) {
+                        log('warn'， `Received out of order packet seq=${seq} before initialization`);
                         continue;
                     }
                     await this._writeToRemote(nextData);
                 }
                 
-                this.nextSeq++;
+                this。nextSeq++;
                 log('debug', `Processed packet seq=${this.nextSeq-1}`);
             }
 
             // 检查缓存大小
-            if (this.pendingBuffers.size > SETTINGS.MAX_BUFFERED_POSTS) {
+            if (this.pendingBuffers。size > SETTINGS。MAX_BUFFERED_POSTS) {
                 throw new Error('Too many buffered packets');
             }
 
