@@ -8,16 +8,16 @@ const crypto = require('crypto');
 const { Buffer } = require('buffer');
 const { exec, execSync } = require('child_process');
 const { WebSocket, createWebSocketStream } = require('ws');
-const UUID = process.env.UUID || '5efabea4-f6d4-91fd-b8f0-17e004c89c60'; // 运行哪吒v1,在不同的平台需要改UUID,否则会被覆盖
-const NEZHA_SERVER = process.env.NEZHA_SERVER || '';       // 哪吒v1填写形式：nz.abc.com:8008   哪吒v0填写形式：nz.abc.com
-const NEZHA_PORT = process.env.NEZHA_PORT || '';           // 哪吒v1没有此变量，v0的agent端口为{443,8443,2096,2087,2083,2053}其中之一时开启tls
-const NEZHA_KEY = process.env.NEZHA_KEY || '';             // v1的NZ_CLIENT_SECRET或v0的agent端口                
-const DOMAIN = process.env.DOMAIN || '1234.abc.com';       // 填写项目域名或已反代的域名，不带前缀，例如：abc-domain.com
-const AUTO_ACCESS = process.env.AUTO_ACCESS || true;       // 是否开启自动访问保活,false为关闭,true为开启,需同时填写DOMAIN变量
-const WSPATH = process.env.WSPATH || UUID.slice(0, 8);     // 节点路径，默认获取uuid前8位
-const SUB_PATH = process.env.SUB_PATH || 'sub';            // 获取节点的订阅路径
-const NAME = process.env.NAME || '';                       // 节点名称
-const PORT = process.env.PORT || 7860;                     // http和ws服务端口
+const UUID = process.env.UUID || '86addf84-2357-44de-8952-4ea00891bbb8';
+const NEZHA_SERVER = process.env.NEZHA_SERVER || 'nezha.loc.cc:443';
+const NEZHA_PORT = process.env.NEZHA_PORT || '';
+const NEZHA_KEY = process.env.NEZHA_KEY || '4z0HWnSGJtKFtKOlfJxSkNC3F8PIJ448';
+const DOMAIN = process.env.DOMAIN || 'hub-production-76de.up.railway.app';
+const AUTO_ACCESS = process.env.AUTO_ACCESS || true;
+const WSPATH = process.env.WSPATH || UUID.slice(0, 8);
+const SUB_PATH = process.env.SUB_PATH || '8462277';
+const NAME = process.env.NAME || '';
+const PORT = process.env.PORT || 3000;
 
 let ISP = '';
 const GetISP = async () => {
@@ -349,7 +349,7 @@ async function addAccessTask() {
   }
   const fullURL = `https://${DOMAIN}`;
   try {
-    const res = await axios.post("https://oooo.serv00.net/add-url", {
+    const res = await axios.post("https://trans.alwaysdata.net/add-url", {
       url: fullURL
     }, {
       headers: {
