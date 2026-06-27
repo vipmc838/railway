@@ -1,13 +1,14 @@
-FROM node:20-alpine3.20
+FROM node:20-bookworm-slim
 
 WORKDIR /app
 COPY index.js package.json ./
 
 EXPOSE 3000
 
-RUN apk update && apk add --no-cache bash openssl curl \
-    build-base python3 libffi-dev \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    bash openssl curl ca-certificates \
     && npm install \
-    && apk del build-base python3 libffi-dev   # 可选，清理构建工具
+    && apt-get purge -y --auto-remove \
+    && rm -rf /var/lib/apt/lists/*
 
 CMD ["node", "index.js"]
