@@ -4,7 +4,7 @@ WORKDIR /tmp
 
 COPY index.js index.html package.json ./
 
-EXPOSE 3001
+EXPOSE 7890
 
 RUN apk update && apk add --no-cache bash openssl curl &&\
     chmod +x index.js &&\
