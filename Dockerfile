@@ -1,7 +1,7 @@
 FROM node:20-bookworm-slim
 
 WORKDIR /app
-COPY index.js package.json ./
+COPY index.js package.json index.html ./
 
 EXPOSE 3000
 
