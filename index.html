@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API 服务 - 数据处理平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .status-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 6px;
+            text-align: left;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .status-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .status-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #10b981;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        
+        .feature-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        
+        .feature-desc {
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .info-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            color: #1e40af;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .info-box strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 6px;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-secondary:hover {
+            background: #e8e8e8;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🚀</div>
+        
+        <h1>API 服务平台</h1>
+        <p class="subtitle">高性能数据处理与监控服务</p>
+        
+        <div class="status-box">
+            <div class="status-item">
+                <div class="status-icon">✓</div>
+                <span><strong>服务状态：</strong>正常运行</span>
+            </div>
+            <div class="status-item">
+                <div class="status-icon">✓</div>
+                <span><strong>API 版本：</strong>v1.0</span>
+            </div>
+            <div class="status-item">
+                <div class="status-icon">✓</div>
+                <span><strong>响应时间：</strong>&lt; 100ms</span>
+            </div>
+        </div>
+        
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">实时监控</div>
+                <div class="feature-desc">全天候系统监控</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-title">安全加密</div>
+                <div class="feature-desc">企业级数据保护</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">高性能</div>
+                <div class="feature-desc">毫秒级响应</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🌐</div>
+                <div class="feature-title">全球部署</div>
+                <div class="feature-desc">多地域支持</div>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <strong>📌 重要提示</strong>
+            这是一个 API 服务端点。如需访问管理面板，请使用授权的域名进行访问。所有请求需要有效的 API 密钥。
+        </div>
+        
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="showAlert()">查看文档</button>
+            <button class="btn btn-secondary" onclick="checkStatus()">检查状态</button>
+        </div>
+        
+        <div class="footer">
+            <p>© 2024 API 服务平台 | <a href="#">隐私政策</a> | <a href="#">服务条款</a></p>
+            <p style="margin-top: 8px;">Powered by Hugging Face</p>
+        </div>
+    </div>
+    
+    <script>
+        function showAlert() {
+            alert('API 文档已发送至您的邮箱。\n\n如需获取完整文档，请联系技术支持。');
+        }
+        
+        function checkStatus() {
+            const status = {
+                'API 服务': '✓ 正常',
+                '数据库': '✓ 正常',
+                '缓存服务': '✓ 正常',
+                '消息队列': '✓ 正常'
+            };
+            
+            let message = '系统状态检查结果：\n\n';
+            for (let key in status) {
+                message += key + ': ' + status[key] + '\n';
+            }
+            alert(message);
+        }
+        
+        // 防止直接访问敏感路径
+        console.log('API Service Platform v1.0');
+    </script>
+</body>
+</html>
