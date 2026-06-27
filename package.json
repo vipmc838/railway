@@ -1,17 +1,17 @@
 {
-  "name": "nodews",
+  "name": "node-project",
   "version": "1.0.0",
-  "description": "Nodejs-server",
+  "description": "Node.js runner",
   "main": "index.js",
-  "private": false,
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "ws": "^8.14.2",
-    "axios": "^1.12.2"
+    "axios": "^1.7.0",
+    "dotenv": "^16.3.1",
+    "koffi": "^2.9.0"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   }
 }
