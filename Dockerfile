@@ -3,7 +3,7 @@ FROM node:20-bookworm-slim
 WORKDIR /app
 COPY index.js package.json ./
 
-EXPOSE 3001
+EXPOSE 8080
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
