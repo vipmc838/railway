@@ -30,7 +30,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/railway-9527:latest
+            ghcr.io/${{ github.repository_owner }}/buildfyio-9527:latest
           labels: |
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
             org.opencontainers.image.description=XHTTP Server
