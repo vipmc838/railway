@@ -7,7 +7,7 @@ EXPOSE 8080
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-      bash openssl curl ca-certificates && \
+      bash openssl curl ca-certificates procps && \
     npm install && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
