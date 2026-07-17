@@ -32,7 +32,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/suga-9527:latest
+            ghcr.io/${{ github.repository_owner }}/suga-20185:latest
           labels: |
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
             org.opencontainers.image.description=XHTTP Server
